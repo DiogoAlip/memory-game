@@ -1,37 +1,51 @@
 import { useState } from "react"
 import { Card } from "./components/card"
-import { randomArray } from "./variables/arraysImages"
+import { randomArray } from "./helpers/arraysImages"
+import { FLIP_DOWN, FLIP_UP, BLOCK } from "./constants"
 
 function MemoryApp() {
   const [cards, setCards] = useState(randomArray())
+  const [cardsStatus, setCardsStatus] = useState(Array(cards.length).fill(FLIP_DOWN))
   const [clicks,setClicks] = useState(0)
-  const [asserts, setAsserts] = useState([])
+
+  const cardsStatusPairChanger = (indexA, indexB, value) => {
+    const newCardsStatus = cardsStatus.map((element,indexElement) => (indexA == indexElement || indexB == indexElement) && element != BLOCK && element != value? value : element)
+    setCardsStatus(newCardsStatus)
+  }
+
+  const cardStatusChanger = (index,value) => {
+    const newCardsStatus = cardsStatus.map((element,indexElement) => index == indexElement && element != value ? value : element)
+    setCardsStatus(newCardsStatus)
+  }
 
   const checkAssert = (index) => {
-    setAsserts([...asserts,index])
-    if(clicks%2 == 0 && clicks != 0){
-      //moves = clicks == 0? 0 : parseInt(clicks/2)
-      const [a,b] = asserts.slice(-2)
-      console.log(a + "     " + b)
-      if(a != b && cards[a] == cards[b]){
-        console.log(asserts)
-      }else{
-        
+    if (cardsStatus[index] == BLOCK) return
+    setClicks(clicks+FLIP_DOWN)
+    cardStatusChanger(index, cardsStatus[index] == FLIP_DOWN ? FLIP_UP : FLIP_DOWN)
+    if((clicks +FLIP_DOWN)%FLIP_UP == 0 && clicks > 0){
+      const first = cardsStatus.findIndex((element) => element == FLIP_UP)
+      const second = index
+      //const moves = clicks == 0? 0 : parseInt(clicks/FLIP_UP)
+      if(second != first && cards[second] == cards[first]){
+        cardsStatusPairChanger(second,first,BLOCK)
+      }else if(second != first){
+        setTimeout(() => {
+          cardsStatusPairChanger(second,first,FLIP_DOWN)
+        }, 700)
       }
     }
-    setClicks(clicks+1)
-    console.log(clicks)
   }
 
   const restart = () => {
+    setClicks(0)
+    setCardsStatus(Array(cards.length).fill(FLIP_DOWN))
     setCards(randomArray)
-    /*mas complementos */
   }
 
   return (
     <>
     <div className='top-bar'>
-      <h2>Memory App</h2> 
+      <h2>Memory Game</h2> 
       <button onClick={restart}>Restart Game</button> 
     </div>
     <div className="card-container">
@@ -41,7 +55,8 @@ function MemoryApp() {
           key={`${index}${card}`}
           onClick={() => checkAssert(index)}
           //moves={clicks}
-          flip={false}/>
+          status={cardsStatus[index]}
+        />
       ))}
     </div>
     </>

@@ -1,16 +1,8 @@
-import { useState } from "react"
-
-export function Card({face, onClick,flip}) {
-    const [fliped, setFliped] = useState(flip)
-
-    const onFlip = () => {
-        onClick()
-        setFliped(!fliped)
-    }
+export function Card({face, onClick, status}) { 
 
     return (
-        <div className={fliped ? "card-select" : "card"} onClick = {onFlip}>
-            { fliped && <img src={face} alt={face} /> }
+        <div className={(status != 1) ? "card-select" : "card"} onClick = {onClick}>
+            { status > 1 && <img src={face} alt={face} /> }
         </div>
     )
 }

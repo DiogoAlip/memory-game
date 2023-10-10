@@ -18,5 +18,5 @@ export const randomArray = () => {
         newArray.push(oldDoubleArray[number])
         oldDoubleArray.splice(number,1)
     }
-    return [...newArray]
+    return [...newArray]    
 }
