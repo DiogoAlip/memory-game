@@ -1,0 +1,98 @@
+:root {
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+#root {
+  width: 90%;
+}
+
+body {
+  padding: 12px 0px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  color: #222222;
+  background-color:rgb(243, 239, 224) ;
+  z-index: 1;
+}
+
+h2{
+  margin: 0px 12px;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid #222222;
+  padding: 10px 8px;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #222222;
+  color: rgb(243, 239, 224);
+  cursor: pointer;
+  transition: 0.2s;
+  margin: 0px 12px;
+}
+
+button:hover{
+  background-color: rgb(243, 239, 224);
+  color: #22A39F;
+  border-color: #22A39F;
+}
+
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card, .card-select {
+  padding: 25px;
+  margin: 12px 12px;
+  height: 90px;
+  width: 70px;
+  border-radius: 10px;
+  border: 3px solid #222222;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: #434343;
+}
+
+.card:hover {
+  background-color: #222222;
+  border-color: rgb(243, 239, 224);
+}
+
+.card-select {
+  border-color: #22A39F;
+  background-color: rgb(243, 239, 224);
+}
+.card-select img {
+  margin-top: 15px;
+}
+
+.finish-modal {
+  width: 100vh;
+  height: 100vh;
+  position: absolute;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+}
+
+.finish-modal_table {
+  width: 500px;
+  position: fixed;
+}
