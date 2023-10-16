@@ -53,6 +53,7 @@ button:hover{
   width: 100%;
   justify-content: center;
   margin-top: 20px;
+  z-index: 10;
 }
 
 .card, .card-select {
@@ -95,4 +96,108 @@ button:hover{
 .finish-modal_table {
   width: 500px;
   position: fixed;
+}
+
+
+/*Winner Modal*/
+.winner {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(34, 34, 34, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.text-container {
+  position: fixed;
+  width: 40%;
+  min-width: 400px;
+  height: auto;
+  background-color: #434343;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+}
+
+.text {
+  width: 370px;
+  height: auto;
+  margin: 20px auto;
+}
+
+.text h1, h3 {
+  color: white;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1200px){
+  .card, .card-select {
+    width: 60px;
+    height: 80px;
+    padding: auto auto;
+    margin-top: 12px;
+    margin-bottom: 0px;
+  }
+}
+
+@media only screen and (max-width: 1090px){
+  .card, .card-select {
+    width: 50px;
+    height: 70px;
+  }
+
+  .card img, .card-select img {
+    width: 50px;
+  }
+}
+
+@media only screen and (max-width: 1010px){
+  .card, .card-select {
+    width: 45px;
+    height: 65px;
+  }
+
+  .card img, .card-select img {
+    width: 50px;
+    margin: 10px 0px 0px 0px;
+  }
+}
+
+@media only screen and (max-width: 700px){
+  .card, .card-select {
+    width: 30px;
+    height: 50px;
+  }
+  .card img, .card-select img {
+    margin: 0px 0px 0px -7px;
+  }
+}
+
+@media only screen and (max-width: 610px){
+  .card, .card-select {
+    width: 20px;
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .card img, .card-select img {
+    width: 40px;
+  }
+}
+
+@media only screen and (max-width: 450px){
+  .card, .card-select {
+    width: 16px;
+    height: 28px;
+  }
+  .card img, .card-select img {
+    width: 40px;
+    margin: -5px 0px 0px -10px;
+  }
 }

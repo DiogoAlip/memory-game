@@ -2,15 +2,24 @@ import { useState } from "react"
 import { Card } from "./components/card"
 import { randomArray } from "./helpers/arraysImages"
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "./constants"
+import { WinnerModal } from "./components/WinnerModal"
 
 function MemoryApp() {
   const [cards, setCards] = useState(randomArray())
   const [cardsStatus, setCardsStatus] = useState(Array(cards.length).fill(FLIP_DOWN))
   const [clicks,setClicks] = useState(0)
+  const [winner, setWinner] = useState(null)
 
   const cardsStatusPairChanger = (indexA, indexB, value) => {
     const newCardsStatus = cardsStatus.map((element,indexElement) => (indexA == indexElement || indexB == indexElement) && element != BLOCK && element != value? value : element)
     setCardsStatus(newCardsStatus)
+
+    checkWinner(newCardsStatus)
+  }
+
+  const checkWinner = (cardsActually) => {
+    const comprober = cardsActually.every( element => element == BLOCK )
+    setWinner(comprober)
   }
 
   const cardStatusChanger = (index,value) => {
@@ -40,6 +49,7 @@ function MemoryApp() {
     setClicks(0)
     setCardsStatus(Array(cards.length).fill(FLIP_DOWN))
     setCards(randomArray)
+    setWinner(null)
   }
 
   return (
@@ -59,6 +69,7 @@ function MemoryApp() {
         />
       ))}
     </div>
+    {winner && <WinnerModal moves={parseInt(clicks/2)}/>}
     </>
   ) 
 }
