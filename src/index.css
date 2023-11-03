@@ -32,6 +32,7 @@ button {
   cursor: pointer;
   transition: 0.2s;
   margin: 0px 12px;
+  pointer-events: all;
 }
 
 button:hover{
@@ -98,9 +99,134 @@ button:hover{
   position: fixed;
 }
 
+/*gamemode modal*/
+.exit-button {
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+  border: transparent;
+  filter:invert(1);
+  padding: 0px;
+  margin: 0px;
+}
 
-/*Winner Modal*/
-.winner {
+.exit-button:hover {
+  background-color: transparent;
+  border: transparent;
+  filter:invert(0.15);
+}
+
+.modal-header {
+  color: rgb(243, 239, 224);
+  text-align: center;
+}
+
+.modal-header h2 {
+  margin-bottom: 24px;
+}
+
+.game-mode_options-menu {
+  display: flex;
+  justify-content: center;
+}
+.game-mode_options-menu div {
+  width: 280px;
+  height: auto;
+}
+
+input{
+  border: 0px solid #22A39F;
+  outline: 0px solid transparent;
+  margin: 4px 0px;
+  border-radius: 5px;
+  height: 18px;
+  background-color: #222222;
+  color: rgb(243, 239, 224);
+  padding: 4px 4px;
+}
+
+input:focus {
+  border-width: 2px;
+  margin: 2px 0px;
+}
+
+.moves-setter {
+  padding: 10px;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  gap: 16px;
+}
+
+.invalid-button {
+  pointer-events: none;
+  color: #434343;
+}
+
+/*Game Aplied*/
+.game_bar-container {
+  top: 0px;
+  left: 0px;
+  width: 0px;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: end;
+  background-color: transparent;
+}
+
+.game_bar {
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  background-color: #222222;
+  color: rgb(243, 239, 224);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0px 0px 0px 24px;
+  gap: 12px;
+}
+
+.game_bar h4 {
+  width: 80px;
+}
+
+.game_bar button {
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #222222;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+/*Players bar Turn*/
+.players_turns_bar-container {
+  position: absolute;
+  height: 0px;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.players_turns_bar {
+  width: 80px;
+  height: 60px;
+  background-color: #222222;
+  padding: 4px 8px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-align: center;
+}
+
+.players_turns_bar h4 {
+  color: rgb(243, 239, 224);
+}
+
+/*winner Modal*/
+.modal {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -191,7 +317,7 @@ button:hover{
   }
 }
 
-@media only screen and (max-width: 450px){
+@media only screen and (max-width: 480px){
   .card, .card-select {
     width: 16px;
     height: 28px;

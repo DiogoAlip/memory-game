@@ -3,6 +3,7 @@ import { Card } from "./components/card"
 import { randomArray } from "./helpers/arraysImages"
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "./constants"
 import { WinnerModal } from "./components/WinnerModal"
+import { GameMode } from "./components/GameMode"
 
 function MemoryApp() {
   const [cards, setCards] = useState(randomArray())
@@ -13,7 +14,6 @@ function MemoryApp() {
   const cardsStatusPairChanger = (indexA, indexB, value) => {
     const newCardsStatus = cardsStatus.map((element,indexElement) => (indexA == indexElement || indexB == indexElement) && element != BLOCK && element != value? value : element)
     setCardsStatus(newCardsStatus)
-
     checkWinner(newCardsStatus)
   }
 
@@ -56,7 +56,10 @@ function MemoryApp() {
     <>
     <div className='top-bar'>
       <h2>Memory Game</h2> 
-      <button onClick={restart}>Restart Game</button> 
+      <div>
+        <button onClick={restart}>Restart Game</button>
+        <GameMode clicks={clicks}/>
+      </div>
     </div>
     <div className="card-container">
     {cards.map((card,index) => (  
@@ -69,7 +72,7 @@ function MemoryApp() {
         />
       ))}
     </div>
-    {winner && <WinnerModal moves={parseInt(clicks/2)}/>}
+    {winner && <WinnerModal moves={parseInt(clicks/2)} resetGame={restart}/>}
     </>
   ) 
 }
