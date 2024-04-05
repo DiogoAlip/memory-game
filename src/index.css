@@ -1,4 +1,4 @@
-  :root {
+:root {
   font-family: sans-serif;
   font-weight: 400;
 }
@@ -13,12 +13,13 @@ body {
   display: flex;
   justify-content: center;
   color: #222222;
-  background-color:rgb(243, 239, 224) ;
+  background-color: rgb(243, 239, 224);
   z-index: 1;
 }
 
-h2{
+h2 {
   margin: 0px 12px;
+  text-align: center;
 }
 
 button {
@@ -35,10 +36,10 @@ button {
   pointer-events: all;
 }
 
-button:hover{
+button:hover {
   background-color: rgb(243, 239, 224);
-  color: #22A39F;
-  border-color: #22A39F;
+  color: #22a39f;
+  border-color: #22a39f;
 }
 
 .top-bar {
@@ -46,6 +47,10 @@ button:hover{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.top-bar h2 {
+  color: #222222;
 }
 
 .card-container {
@@ -57,7 +62,13 @@ button:hover{
   z-index: 10;
 }
 
-.card, .card-select {
+.disabled {
+  pointer-events: none;
+}
+
+.card,
+.card-block,
+.card-select {
   padding: 25px;
   margin: 12px 12px;
   height: 90px;
@@ -78,11 +89,27 @@ button:hover{
 }
 
 .card-select {
-  border-color: #22A39F;
+  border-color: #22a39f;
   background-color: rgb(243, 239, 224);
 }
+
+.card-block {
+  border-image: linear-gradient(150deg, #222222, #22a39f);
+  background: linear-gradient(
+    150deg,
+    rgba(34, 34, 34, 1) 0%,
+    rgba(34, 163, 159, 1) 100%
+  );
+}
+
 .card-select img {
   margin-top: 15px;
+}
+
+.card-block img {
+  margin-top: 15px;
+  filter: invert(1);
+  transition: 0.2s;
 }
 
 .finish-modal {
@@ -105,7 +132,7 @@ button:hover{
   width: 30px;
   background-color: transparent;
   border: transparent;
-  filter:invert(1);
+  filter: invert(1);
   padding: 0px;
   margin: 0px;
 }
@@ -113,7 +140,7 @@ button:hover{
 .exit-button:hover {
   background-color: transparent;
   border: transparent;
-  filter:invert(0.15);
+  filter: invert(0.15);
 }
 
 .modal-header {
@@ -123,6 +150,7 @@ button:hover{
 
 .modal-header h2 {
   margin-bottom: 24px;
+  color: rgb(243, 239, 224);
 }
 
 .game-mode_options-menu {
@@ -134,8 +162,8 @@ button:hover{
   height: auto;
 }
 
-input{
-  border: 0px solid #22A39F;
+input {
+  border: 0px solid #22a39f;
   outline: 0px solid transparent;
   margin: 4px 0px;
   border-radius: 5px;
@@ -163,6 +191,10 @@ input:focus {
   color: #434343;
 }
 
+.players-name_container {
+  margin-bottom: 16px;
+}
+
 /*Game Aplied*/
 .game_bar-container {
   top: 0px;
@@ -178,26 +210,45 @@ input:focus {
 .game_bar {
   height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #222222;
   color: rgb(243, 239, 224);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding: 0px 0px 0px 24px;
-  gap: 12px;
+  background-color: #222222;
+  padding-bottom: 10px;
 }
 
 .game_bar h4 {
+  padding: 10px;
   width: 80px;
+  text-align: center;
+  margin: 0px;
+}
+
+.game_bar h4 img {
+  filter: invert(1);
+  height: 20px;
+  margin-right: 5px;
+  transform: translateY(5px);
+}
+
+.game_bar h4:hover > .button-restart_mode {
+  display: block;
 }
 
 .game_bar button {
   font-size: 14px;
   font-weight: 600;
-  background-color: #222222;
-  margin: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  margin: 12px 0px;
+  padding: 8px 10px;
+  border-style: solid;
+  background-color: #434343;
+  color: rgb(243, 239, 224);
+}
+
+.button-restart_mode {
+  display: none;
 }
 
 /*Players bar Turn*/
@@ -227,7 +278,7 @@ input:focus {
 
 /*winner Modal*/
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   height: 100%;
@@ -236,7 +287,16 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 30;
+}
+
+.end-modal {
   z-index: 20;
+}
+
+.reset-button {
+  display: flex;
+  justify-content: center;
 }
 
 .text-container {
@@ -257,13 +317,17 @@ input:focus {
   margin: 20px auto;
 }
 
-.text h1, h3 {
-  color: white;
+.text h1,
+.text h2,
+h3 {
+  color: rgb(243, 239, 224);
   text-align: center;
 }
 
-@media only screen and (max-width: 1200px){
-  .card, .card-select {
+@media only screen and (max-width: 1200px) {
+  .card,
+  .card-block,
+  .card-select {
     width: 60px;
     height: 80px;
     padding: auto auto;
@@ -272,57 +336,72 @@ input:focus {
   }
 }
 
-@media only screen and (max-width: 1090px){
-  .card, .card-select {
+@media only screen and (max-width: 1090px) {
+  .card,
+  .card-block,
+  .card-select {
     width: 50px;
     height: 70px;
   }
 
-  .card img, .card-select img {
+  .card img,
+  .card-select img {
     width: 50px;
   }
 }
 
-@media only screen and (max-width: 1010px){
-  .card, .card-select {
+@media only screen and (max-width: 1010px) {
+  .card,
+  .card-block,
+  .card-select {
     width: 45px;
     height: 65px;
   }
 
-  .card img, .card-select img {
+  .card img,
+  .card-select img {
     width: 50px;
     margin: 10px 0px 0px 0px;
   }
 }
 
-@media only screen and (max-width: 700px){
-  .card, .card-select {
+@media only screen and (max-width: 700px) {
+  .card,
+  .card-block,
+  .card-select {
     width: 30px;
     height: 50px;
   }
-  .card img, .card-select img {
+  .card img,
+  .card-select img {
     margin: 0px 0px 0px -7px;
   }
 }
 
-@media only screen and (max-width: 610px){
-  .card, .card-select {
+@media only screen and (max-width: 610px) {
+  .card,
+  .card-block,
+  .card-select {
     width: 20px;
     height: 35px;
     margin-left: 5px;
     margin-right: 5px;
   }
-  .card img, .card-select img {
+  .card img,
+  .card-select img {
     width: 40px;
   }
 }
 
-@media only screen and (max-width: 480px){
-  .card, .card-select {
+@media only screen and (max-width: 480px) {
+  .card,
+  .card-block,
+  .card-select {
     width: 16px;
     height: 28px;
   }
-  .card img, .card-select img {
+  .card img,
+  .card-select img {
     width: 40px;
     margin: -5px 0px 0px -10px;
   }
