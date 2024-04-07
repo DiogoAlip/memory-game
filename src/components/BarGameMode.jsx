@@ -6,7 +6,7 @@ import { WinnerContext } from "../context/WinnerContext";
 import { WinnerModal } from "./WinnerModal";
 import { ClicksContext } from "../context/ClicksContext";
 
-export const BarGameMode = memo(({ timeNumber, movesRange, restartGame }) => {
+export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }) => {
   const { winner, setWinner } = useContext(WinnerContext);
   const { clicks, setClicks } = useContext(ClicksContext);
   const moves = clicks % 2;
@@ -51,9 +51,9 @@ export const BarGameMode = memo(({ timeNumber, movesRange, restartGame }) => {
             <img src={timeIcon} alt="" />: {convertTimeString(totalSeconds)}
             <button
               className="button-restart_mode"
-              onClick={() => restartGame({ moves: movesRange ?? 0 })}
+              onClick={() => RestartGame({ moves: movesRange ?? 0 })}
             >
-              Reanudar
+              Reinicio
             </button>
           </h4>
         )}
@@ -62,9 +62,9 @@ export const BarGameMode = memo(({ timeNumber, movesRange, restartGame }) => {
             <img src={movesIcon} alt="" />: {movesLeft}
             <button
               className="button-restart_mode"
-              onClick={() => restartGame({ time: timeNumber ?? 0 })}
+              onClick={() => RestartGame({ time: timeNumber ?? 0 })}
             >
-              Reanudar
+              Reinicio
             </button>
           </h4>
         )}
@@ -76,7 +76,7 @@ export const BarGameMode = memo(({ timeNumber, movesRange, restartGame }) => {
             time={timeNumber ? convertTimeString(LimitTime) : null}
             resetGame={() => {
               setClicks(0);
-              restartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
+              RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
               setMovesLeft(LimitMoves + 1);
               setTotalSeconds(LimitTime);
             }}
@@ -86,7 +86,7 @@ export const BarGameMode = memo(({ timeNumber, movesRange, restartGame }) => {
         <WinnerModal
           moves={moves}
           resetGame={() => {
-            restartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
+            RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
             setMovesLeft(LimitMoves + 1);
             setTotalSeconds(LimitTime);
             setWinner(null);
