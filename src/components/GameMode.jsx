@@ -16,14 +16,16 @@ export const GameMode = ({ restart, activeConfiguration }) => {
   const [players, setPlayers] = useState(Array(4).fill(""));
   //usar useContext para este
   const { timeString, timeNumber, onSetTimeByNumber } = useTime(0);
-
   //user los memos para las funciones y los valores
 
   useEffect(() => {
-    activeConfiguration(movesRange > 0 || !!timeNumber);
+    const setConfigurationComprober =
+      (movesRange > 0 || !!timeNumber || playersValidator()) && !barState;
+    activeConfiguration(setConfigurationComprober);
+    if (setConfigurationComprober) restart({ clicksRestart: false });
   }, [movesRange, barState, timeNumber]);
 
-  const ResetGame = ({ time = 0, moves = 0 }) => {
+  const RestartGame = ({ time = 0, moves = 0 }) => {
     onSetTimeByNumber(time);
     setMovesRange(moves);
     setPlayers(Array(4).fill(""));
@@ -134,7 +136,7 @@ export const GameMode = ({ restart, activeConfiguration }) => {
       {(movesRange > 0 || !!timeNumber) && !barState && (
         <BarGameMode
           timeNumber={timeNumber}
-          restartGame={ResetGame}
+          RestartGame={RestartGame}
           movesRange={movesRange}
         />
       )}

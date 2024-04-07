@@ -75,8 +75,8 @@ function MemoryApp() {
     }
   };
 
-  const restart = () => {
-    setClicks(0);
+  const restart = ({ clicksRestart = true } = {}) => {
+    if (clicksRestart) setClicks(0);
     setCardsStatus(Array(cards.length).fill(FLIP_DOWN));
     setCards(randomArray);
     setWinner(null);
