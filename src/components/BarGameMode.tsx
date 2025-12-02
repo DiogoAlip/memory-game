@@ -6,7 +6,13 @@ import { WinnerContext } from "../context/WinnerContext";
 import { WinnerModal } from "./WinnerModal";
 import { ClicksContext } from "../context/ClicksContext";
 
-export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }) => {
+interface BarGameModeProps {
+  timeNumber: number;
+  movesRange: number;
+  RestartGame: (args: { time?: number; moves?: number }) => void;
+}
+
+export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }: BarGameModeProps) => {
   const { winner, setWinner } = useContext(WinnerContext);
   const { clicks, setClicks } = useContext(ClicksContext);
   const moves = clicks % 2;
@@ -17,8 +23,8 @@ export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }) => {
     Math.round(timeNumber / 2) * 60 + (timeNumber % 2 === 0 ? 30 : 0);
   const [totalSeconds, setTotalSeconds] = useState(LimitTime);
 
-  const convertTimeString = (timeInSeconds) =>
-    `${parseInt(timeInSeconds / 60)}:${timeInSeconds % 60 < 10 ? 0 : ""}${
+  const convertTimeString = (timeInSeconds: number) =>
+    `${Math.floor(timeInSeconds / 60)}:${timeInSeconds % 60 < 10 ? 0 : ""}${
       timeInSeconds % 60
     }`;
 

@@ -4,16 +4,16 @@ import { randomArray } from "./helpers/arraysImages";
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "./constants";
 import { WinnerModal } from "./components/WinnerModal";
 import { GameMode } from "./components/GameMode";
-import { WinnerContext } from "./context/WinnerContext";
-import { ClicksContext } from "./context/ClicksContext";
-import { ConfigContext } from "./context/ConfigContext";
+import { WinnerContext, WinnerContextType } from "./context/WinnerContext";
+import { ClicksContext, ClicksContextType } from "./context/ClicksContext";
+import { ConfigContext, ConfigContextType } from "./context/ConfigContext";
 
 function MemoryApp() {
-  const { winner, setWinner } = useContext(WinnerContext);
-  const { clicks, setClicks } = useContext(ClicksContext);
-  const { configBoolean, setConfigBoolean } = useContext(ConfigContext);
-  const [cards, setCards] = useState(randomArray());
-  const [cardsStatus, setCardsStatus] = useState(
+  const { winner, setWinner } = useContext(WinnerContext) as WinnerContextType;
+  const { clicks, setClicks } = useContext(ClicksContext) as ClicksContextType;
+  const { configBoolean, setConfigBoolean } = useContext(ConfigContext) as ConfigContextType;
+  const [cards, setCards] = useState<string[]>(randomArray());
+  const [cardsStatus, setCardsStatus] = useState<number[]>(
     Array(cards.length).fill(FLIP_DOWN)
   );
 
@@ -25,7 +25,7 @@ function MemoryApp() {
   })) */
   //useContext para los clicks
 
-  const cardsStatusPairChanger = (indexA, indexB, value) => {
+  const cardsStatusPairChanger = (indexA: number, indexB: number, value: number) => {
     const newCardsStatus = cardsStatus.map((element, indexElement) =>
       (indexA === indexElement || indexB === indexElement) &&
       element != BLOCK &&
@@ -37,19 +37,19 @@ function MemoryApp() {
     checkWinner(newCardsStatus);
   };
 
-  const checkWinner = (cardsActually) => {
+  const checkWinner = (cardsActually: number[]) => {
     const comprober = cardsActually.every((element) => element == BLOCK);
     setWinner(comprober);
   };
 
-  const cardStatusChanger = (index, value) => {
+  const cardStatusChanger = (index: number, value: number) => {
     const newCardsStatus = cardsStatus.map((element, indexElement) =>
       index == indexElement && element != value ? value : element
     );
     setCardsStatus(newCardsStatus);
   };
 
-  const checkAssert = (index) => {
+  const checkAssert = (index: number) => {
     if (cardsStatus[index] == BLOCK) return;
     setClicks(clicks + 1);
     cardStatusChanger(
@@ -78,7 +78,7 @@ function MemoryApp() {
   const restart = ({ clicksRestart = true } = {}) => {
     if (clicksRestart) setClicks(0);
     setCardsStatus(Array(cards.length).fill(FLIP_DOWN));
-    setCards(randomArray);
+    setCards(randomArray());
     setWinner(null);
   };
 
@@ -87,10 +87,10 @@ function MemoryApp() {
       <div className="top-bar">
         <h2>Memory Game</h2>
         <div>
-          {!configBoolean && <button onClick={restart}>Restart Game</button>}
+          {!configBoolean && <button onClick={() => restart()}>Restart Game</button>}
           <GameMode
             restart={restart}
-            activeConfiguration={(boolean) => setConfigBoolean(boolean)}
+            activeConfiguration={(boolean: boolean) => setConfigBoolean(boolean)}
           />
         </div>
       </div>
@@ -111,7 +111,7 @@ function MemoryApp() {
         ))}
       </div>
       {winner && !configBoolean && (
-        <WinnerModal moves={parseInt(clicks / 2)} resetGame={restart} />
+        <WinnerModal moves={Math.floor(clicks / 2)} resetGame={restart} />
       )}
     </>
   );

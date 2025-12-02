@@ -1,13 +1,21 @@
 import right from "../assets/caret-right-solid.svg";
 import left from "../assets/caret-left-solid.svg";
 import { ConfigurationsButtons } from "./ConfigurationButtons";
+interface MoveModeProps {
+  movesRange: number;
+  setMovesRange: (moves: number) => void;
+  nextOptionsMoves: () => void;
+  backOptionsMoves: () => void;
+  nextOptionsView: () => void;
+}
+
 export const MoveMode = ({
   movesRange,
   setMovesRange,
   nextOptionsMoves,
   backOptionsMoves,
   nextOptionsView,
-}) => {
+}: MoveModeProps) => {
   return (
     <div>
       <h4>Numero de movimientos</h4>

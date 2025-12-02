@@ -1,4 +1,10 @@
-export function WinnerModal({ winner = null, moves, resetGame }) {
+interface WinnerModalProps {
+  winner?: boolean | null | string;
+  moves: number;
+  resetGame: () => void;
+}
+
+export function WinnerModal({ winner = null, moves, resetGame }: WinnerModalProps) {
   const text = !winner ? "" : winner + ", ";
 
   return (

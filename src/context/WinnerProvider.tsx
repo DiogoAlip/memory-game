@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { WinnerContext } from "./WinnerContext";
 
-export const WinnerProvider = ({ children }) => {
-  const [winner, setWinner] = useState(null);
+import { ReactNode } from "react";
+
+export const WinnerProvider = ({ children }: { children: ReactNode }) => {
+  const [winner, setWinner] = useState<boolean | null>(null);
   return (
     <WinnerContext.Provider value={{ winner, setWinner }}>
       {children}

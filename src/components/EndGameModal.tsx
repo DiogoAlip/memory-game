@@ -1,4 +1,11 @@
-export const EndGameModal = ({ players, moves, time, resetGame }) => {
+interface EndGameModalProps {
+  players?: string[];
+  moves: number;
+  time: string | null;
+  resetGame: () => void;
+}
+
+export const EndGameModal = ({ players, moves, time, resetGame }: EndGameModalProps) => {
   const reasons = moves ? "No hay mas Movimientos!" : "Tiempo Culminado!";
 
   return (

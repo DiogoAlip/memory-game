@@ -1,4 +1,10 @@
-export function ConfigurationsButtons({ values, onNextAplication, onCancel }) {
+interface ConfigurationsButtonsProps {
+  values: number;
+  onNextAplication: () => void;
+  onCancel: () => void;
+}
+
+export function ConfigurationsButtons({ values, onNextAplication, onCancel }: ConfigurationsButtonsProps) {
   return (
     <div>
       <button

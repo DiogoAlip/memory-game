@@ -1,5 +1,5 @@
-import { BLOCK, FLIP_DOWN, FLIP_UP } from "../constants";
-export const cardsReducer = (initialDeck, action) => {
+import { BLOCK } from "../constants";
+export const cardsReducer = (initialDeck: any[], action: any) => {
   switch (action.type) {
     case "CHANGE ONE CARD":
       return initialDeck.map((element, indexElement) =>

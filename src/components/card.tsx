@@ -1,7 +1,13 @@
 import { memo } from "react";
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "../constants";
 
-export const Card = memo(({ face, onClick, status }) => {
+interface CardProps {
+  face: string;
+  onClick: () => void;
+  status: number;
+}
+
+export const Card = memo(({ face, onClick, status }: CardProps) => {
   const cardClassName = () => {
     switch (status) {
       case FLIP_DOWN:

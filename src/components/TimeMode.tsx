@@ -1,11 +1,19 @@
 import { ConfigurationsButtons } from "./ConfigurationButtons";
+interface TimeModeProps {
+  timeString: string;
+  timeNumber: number;
+  onChangeRange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  nextOptionsView: () => void;
+  onSetTimeByNumber: (number: number) => void;
+}
+
 export const TimeMode = ({
   timeString,
   timeNumber,
   onChangeRange,
   nextOptionsView,
   onSetTimeByNumber,
-}) => {
+}: TimeModeProps) => {
   return (
     <div>
       <h4>Tiempo de Juego</h4>

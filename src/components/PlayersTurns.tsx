@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 
-export function PlayersTurns({ players, moves }) {
+interface PlayersTurnsProps {
+  players: string[];
+  moves?: number; // moves is used in useEffect, but passed implicitly?
+}
+
+export function PlayersTurns({ players, moves = 0 }: PlayersTurnsProps) {
   const totalPlayers = players.filter((name) => name.length);
   const [turn, setTurn] = useState(0);
   const lastTurn = totalPlayers.length - 1;

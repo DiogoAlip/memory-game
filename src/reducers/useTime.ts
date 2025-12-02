@@ -1,7 +1,9 @@
 import { useReducer } from "react";
 import { timeReducer } from "./timeReducer";
 
-export const useTime = (initialTime) => {
+import { TimeState, TimeAction } from "./timeReducer";
+
+export const useTime = (initialTime: number) => {
   const initialMinutes = Math.round(initialTime / 2);
   const initialSeconds = initialTime % 2 === 0 ? 30 : 0;
 
@@ -13,8 +15,8 @@ export const useTime = (initialTime) => {
   const onSetTime = ({
     newMinutes = time.minutes,
     newSeconds = time.seconds,
-  }) => {
-    const action = {
+  }: { newMinutes?: number; newSeconds?: number } = {}) => {
+    const action: TimeAction = {
       type: "Set Time",
       payload: {
         minutes: newMinutes < 0 ? 0 : newMinutes,
@@ -27,10 +29,10 @@ export const useTime = (initialTime) => {
     return action.payload;
   };
 
-  const onSetTimeByNumber = (number) => {
+  const onSetTimeByNumber = (number: number) => {
     const newMinutes = Math.round(number / 2);
-    const newSeconds = parseInt(number) % 2 === 0 ? 30 : 0;
-    const action = {
+    const newSeconds = Math.floor(number) % 2 === 0 ? 30 : 0;
+    const action: TimeAction = {
       type: "Set Time",
       payload: {
         minutes: newMinutes,
@@ -42,8 +44,8 @@ export const useTime = (initialTime) => {
     return action.payload;
   };
 
-  const onSetSeconds = (newSeconds) => {
-    const action = {
+  const onSetSeconds = (newSeconds: number) => {
+    const action: TimeAction = {
       type: "Set Second",
       payload: newSeconds <= 0 ? 0 : newSeconds % 59,
     };
@@ -51,8 +53,8 @@ export const useTime = (initialTime) => {
     timeDispatch(action);
   };
 
-  const onSetMinute = (newMinutes) => {
-    const action = {
+  const onSetMinute = (newMinutes: number) => {
+    const action: TimeAction = {
       type: "Set Minute",
       payload: newMinutes <= 0 ? 0 : newMinutes,
     };

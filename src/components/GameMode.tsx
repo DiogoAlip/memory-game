@@ -7,9 +7,14 @@ import { PlayersTurns } from "./PlayersTurns";
 import { useTime } from "../reducers/useTime.js";
 import { TimeMode } from "./TimeMode.jsx";
 import { MoveMode } from "./MoveMode.jsx";
-import { MultiplayerMode } from "./ MultiplayerMode.jsx";
+import { MultiplayerMode } from "./MultiplayerMode.jsx";
 
-export const GameMode = ({ restart, activeConfiguration }) => {
+interface GameModeProps {
+  restart: (args?: { clicksRestart?: boolean }) => void;
+  activeConfiguration: (boolean: boolean) => void;
+}
+
+export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
   const [barState, setBarState] = useState(false);
   const [options, setOptions] = useState(0);
   const [movesRange, setMovesRange] = useState(0);
@@ -25,11 +30,11 @@ export const GameMode = ({ restart, activeConfiguration }) => {
     if (setConfigurationComprober) restart({ clicksRestart: false });
   }, [movesRange, barState, timeNumber]);
 
-  const RestartGame = ({ time = 0, moves = 0 }) => {
+  const RestartGame = ({ time = 0, moves = 0 }: { time?: number; moves?: number }) => {
     onSetTimeByNumber(time);
     setMovesRange(moves);
     setPlayers(Array(4).fill(""));
-    setBarState(time || moves ? barState : !barState);
+    setBarState(!!(time || moves) ? barState : !barState);
     setOptions(!!time ? 0 : 1);
     restart();
   };
@@ -42,8 +47,8 @@ export const GameMode = ({ restart, activeConfiguration }) => {
     setOptions(options === 2 ? 0 : options + 1);
   };
 
-  const onChangeRange = (event) => {
-    onSetTimeByNumber(event.target.value);
+  const onChangeRange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onSetTimeByNumber(Number(event.target.value));
   };
 
   const backOptionsMoves = () => {
@@ -54,7 +59,7 @@ export const GameMode = ({ restart, activeConfiguration }) => {
     setMovesRange(movesRange === 5 ? 0 : movesRange + 1);
   };
 
-  const onSetPlayers = (eventPlayer, newPlayerIndex) => {
+  const onSetPlayers = (eventPlayer: React.ChangeEvent<HTMLInputElement>, newPlayerIndex: number) => {
     const newPlayerName = eventPlayer.target.value;
     const newPlayers = players.map((playerElement, indexPlayers) =>
       indexPlayers == newPlayerIndex ? newPlayerName : playerElement

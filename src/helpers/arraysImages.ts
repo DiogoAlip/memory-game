@@ -9,12 +9,12 @@ import worm from '../assets/worm-solid.svg'
 import otter from '../assets/otter-solid.svg'
 import hippo from '../assets/hippo-solid.svg'
 
-export const randomArray = () => {
+export const randomArray = (): string[] => {
     const oldArray = [crow, dog, dove, frog, horse, kiwi_bird, locust, worm, otter, hippo]
     let oldDoubleArray = oldArray.concat(oldArray)
     let newArray = []
     for(let i = oldDoubleArray.length; i > 0; i--){
-        const number = parseInt(Math.random()*oldDoubleArray.length)
+        const number = Math.floor(Math.random()*oldDoubleArray.length)
         newArray.push(oldDoubleArray[number])
         oldDoubleArray.splice(number,1)
     }

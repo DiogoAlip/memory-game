@@ -1,11 +1,19 @@
 import { ConfigurationsButtons } from "./ConfigurationButtons";
+interface MultiplayerModeProps {
+  players: string[];
+  onSetPlayers: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  playersValidator: () => number;
+  nextOptionsView: () => void;
+  setPlayers: (players: string[]) => void;
+}
+
 export const MultiplayerMode = ({
   players,
   onSetPlayers,
   playersValidator,
   nextOptionsView,
   setPlayers,
-}) => {
+}: MultiplayerModeProps) => {
   return (
     <div>
       <h4>Multijugador</h4>
