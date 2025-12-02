@@ -84,10 +84,10 @@ function MemoryApp() {
 
   return (
     <>
-      <div className="top-bar">
-        <h2>Memory Game</h2>
+      <div className="w-full flex justify-between items-center">
+        <h2 className="mx-3 text-center text-[#222222] font-bold text-2xl">Memory Game</h2>
         <div>
-          {!configBoolean && <button onClick={() => restart()}>Restart Game</button>}
+          {!configBoolean && <button className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]" onClick={() => restart()}>Restart Game</button>}
           <GameMode
             restart={restart}
             activeConfiguration={(boolean: boolean) => setConfigBoolean(boolean)}
@@ -95,9 +95,9 @@ function MemoryApp() {
         </div>
       </div>
       <div
-        className={`card-container ${
+        className={`flex flex-wrap w-full justify-center mt-5 z-10 ${
           cardsStatus.filter((card) => card === FLIP_UP).length === 2
-            ? "disabled"
+            ? "pointer-events-none"
             : ""
         }`}
       >

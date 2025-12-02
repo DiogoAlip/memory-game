@@ -83,52 +83,54 @@ export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
         Game Mode
       </button>
       {barState && (
-        <div className="modal">
-          <div className="text-container">
-            <div className="text">
+        <div className="fixed top-0 left-0 h-full w-full bg-[#22222280] flex justify-center items-center z-30">
+          <div className="fixed w-[40%] min-w-[400px] h-auto bg-[#434343] flex justify-center items-center rounded-[30px]">
+            <div className="w-[370px] h-auto my-5 mx-auto">
               <button
-                className="exit-button"
+                className="h-[30px] w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]"
                 onClick={() => {
                   setBarState(!barState);
                 }}
               >
                 <img src={circle} alt={circle} />
               </button>
-              <div className="modal-header">
-                <h2>Configuraciones del juego</h2>
+              <div className="text-[#f3efe0] text-center">
+                <h2 className="mb-6 text-[#f3efe0]">Configuraciones del juego</h2>
                 <hr />
-                <div className="game-mode_options-menu">
-                  <button className="exit-button" onClick={backOptionsView}>
+                <div className="flex justify-center">
+                  <button className="h-[30px] w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={backOptionsView}>
                     <img src={left} alt={left} />
                   </button>
-                  {options === 0 && (
-                    <TimeMode
-                      timeString={timeString}
-                      timeNumber={timeNumber}
-                      onChangeRange={onChangeRange}
-                      nextOptionsView={nextOptionsView}
-                      onSetTimeByNumber={onSetTimeByNumber}
-                    />
-                  )}
-                  {options === 1 && (
-                    <MoveMode
-                      movesRange={movesRange}
-                      setMovesRange={setMovesRange}
-                      nextOptionsMoves={nextOptionsMoves}
-                      backOptionsMoves={backOptionsMoves}
-                      nextOptionsView={nextOptionsView}
-                    />
-                  )}
-                  {options === 2 && (
-                    <MultiplayerMode
-                      players={players}
-                      onSetPlayers={onSetPlayers}
-                      playersValidator={playersValidator}
-                      nextOptionsView={nextOptionsView}
-                      setPlayers={setPlayers}
-                    />
-                  )}
-                  <button className="exit-button" onClick={nextOptionsView}>
+                  <div className="w-[280px] h-auto">
+                    {options === 0 && (
+                      <TimeMode
+                        timeString={timeString}
+                        timeNumber={timeNumber}
+                        onChangeRange={onChangeRange}
+                        nextOptionsView={nextOptionsView}
+                        onSetTimeByNumber={onSetTimeByNumber}
+                      />
+                    )}
+                    {options === 1 && (
+                      <MoveMode
+                        movesRange={movesRange}
+                        setMovesRange={setMovesRange}
+                        nextOptionsMoves={nextOptionsMoves}
+                        backOptionsMoves={backOptionsMoves}
+                        nextOptionsView={nextOptionsView}
+                      />
+                    )}
+                    {options === 2 && (
+                      <MultiplayerMode
+                        players={players}
+                        onSetPlayers={onSetPlayers}
+                        playersValidator={playersValidator}
+                        nextOptionsView={nextOptionsView}
+                        setPlayers={setPlayers}
+                      />
+                    )}
+                  </div>
+                  <button className="h-[30px] w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={nextOptionsView}>
                     <img src={right} alt={right} />
                   </button>
                 </div>

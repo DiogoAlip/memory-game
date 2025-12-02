@@ -16,9 +16,9 @@ export function PlayersTurns({ players, moves = 0 }: PlayersTurnsProps) {
   }, [moves]);
 
   return (
-    <div className="players_turns_bar-container">
-      <div className="players_turns_bar">
-        <h4>{players[turn]}</h4>
+    <div className="absolute h-0 w-full top-0 left-0 flex justify-center">
+      <div className="w-[80px] h-[60px] bg-[#222222] px-2 py-1 rounded-b-[10px] text-center">
+        <h4 className="text-[#f3efe0]">{players[turn]}</h4>
       </div>
     </div>
   );

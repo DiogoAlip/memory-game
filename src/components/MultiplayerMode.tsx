@@ -17,9 +17,10 @@ export const MultiplayerMode = ({
   return (
     <div>
       <h4>Multijugador</h4>
-      <form className="players-name_container" name="players">
+      <form className="mb-4" name="players">
         {players.map((playerName, playerIndex) => (
           <input
+            className="border-0 outline-none my-1 rounded-[5px] h-[18px] bg-[#222222] text-[#f3efe0] p-1 focus:border-2 focus:my-[2px]"
             placeholder={`player ${playerIndex + 1}`}
             type="text"
             value={playerName}

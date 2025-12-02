@@ -50,13 +50,13 @@ export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }: BarGam
   }, [totalSeconds, winner]);
 
   return (
-    <div className="game_bar-container">
-      <div className="game_bar">
+    <div className="top-0 left-0 w-0 h-full absolute flex items-end bg-transparent">
+      <div className="h-auto flex flex-col bg-[#222222] text-[#f3efe0] rounded-r-[10px] pb-2.5">
         {!!timeNumber && (
-          <h4>
-            <img src={timeIcon} alt="" />: {convertTimeString(totalSeconds)}
+          <h4 className="p-2.5 w-[80px] text-center m-0 group">
+            <img src={timeIcon} alt="" className="invert h-[20px] mr-[5px] translate-y-[5px]" />: {convertTimeString(totalSeconds)}
             <button
-              className="button-restart_mode"
+              className="text-[14px] font-semibold my-3 px-2.5 py-2 border-solid bg-[#434343] text-[#f3efe0] hidden group-hover:block"
               onClick={() => RestartGame({ moves: movesRange ?? 0 })}
             >
               Reinicio
@@ -64,10 +64,10 @@ export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }: BarGam
           </h4>
         )}
         {!!movesRange && (
-          <h4>
-            <img src={movesIcon} alt="" />: {movesLeft}
+          <h4 className="p-2.5 w-[80px] text-center m-0 group">
+            <img src={movesIcon} alt="" className="invert h-[20px] mr-[5px] translate-y-[5px]" />: {movesLeft}
             <button
-              className="button-restart_mode"
+              className="text-[14px] font-semibold my-3 px-2.5 py-2 border-solid bg-[#434343] text-[#f3efe0] hidden group-hover:block"
               onClick={() => RestartGame({ time: timeNumber ?? 0 })}
             >
               Reinicio
