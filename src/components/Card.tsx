@@ -9,7 +9,7 @@ interface CardProps {
 
 export const Card = memo(({ face, onClick, status }: CardProps) => {
   const cardClassName = () => {
-    const base = "p-6 m-3 h-[24vh] w-[10%] min-w-[100px] rounded-[10px] border-[3px] border-[#222222] flex justify-center items-center";
+    const base = "p-3 lg:p-6 m-1 lg:m-3 h-[calc(100vh/4)] max-h-[100px] xl:max-h-[160px] w-[10%] min-w-[70px] rounded-[10px] border-[3px] border-[#222222] flex justify-center items-center";
     switch (status) {
       case FLIP_DOWN:
         return `${base} bg-[#434343] hover:bg-[#222222] hover:border-[#f3efe0]`;
@@ -31,14 +31,7 @@ export const Card = memo(({ face, onClick, status }: CardProps) => {
           src={face}
           alt={face}
           className={`
-            ${status === FLIP_UP ? "mt-[15px]" : ""}
-            ${status === BLOCK ? "mt-[15px] invert transition duration-200" : ""}
-            max-[1090px]:w-[50px]
-            max-[1010px]:w-[50px] max-[1010px]:mt-[10px]
-            max-[700px]:ml-[-7px]
-            max-[610px]:w-[40px]
-            max-[480px]:w-[40px] max-[480px]:mt-[-5px] max-[480px]:ml-[-10px]
-          `}
+            ${status === BLOCK ? " invert transition duration-200" : ""}`}
         />
       )}
     </div>

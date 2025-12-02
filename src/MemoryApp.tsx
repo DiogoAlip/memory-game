@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Card } from "./components/card";
+import { Card } from "./components/Card";
 import { randomArray } from "./helpers/arraysImages";
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "./constants";
 import { WinnerModal } from "./components/WinnerModal";
@@ -84,7 +84,7 @@ function MemoryApp() {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center">
+      <div className="w-full flex justify-between items-center sm:flex-row flex-col gap-3">
         <h2 className="mx-3 text-center text-[#222222] font-bold text-2xl">Memory Game</h2>
         <div>
           {!configBoolean && <button className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]" onClick={() => restart()}>Restart Game</button>}

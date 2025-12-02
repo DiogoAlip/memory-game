@@ -79,6 +79,7 @@ export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
         onClick={() => {
           setBarState(!barState);
         }}
+        className="px-2 py-2.5 font-medium text-[#222222] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]"
       >
         Game Mode
       </button>
@@ -94,11 +95,11 @@ export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
               >
                 <img src={circle} alt={circle} />
               </button>
-              <div className="text-[#f3efe0] text-center">
-                <h2 className="mb-6 text-[#f3efe0]">Configuraciones del juego</h2>
+              <div className="text-[#f3efe0] text-center flex flex-col gap-4">
+                <h2 className="text-[#f3efe0]">Configuraciones del juego</h2>
                 <hr />
-                <div className="flex justify-center">
-                  <button className="h-[30px] w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={backOptionsView}>
+                <div className="flex justify-center items-center">
+                  <button className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={backOptionsView}>
                     <img src={left} alt={left} />
                   </button>
                   <div className="w-[280px] h-auto">
@@ -130,7 +131,7 @@ export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
                       />
                     )}
                   </div>
-                  <button className="h-[30px] w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={nextOptionsView}>
+                  <button className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={nextOptionsView}>
                     <img src={right} alt={right} />
                   </button>
                 </div>
