@@ -19,9 +19,10 @@ function MemoryApp() {
 
   /* const cardsObject = randomArray().map((card, cardIndex) => 
   ({
-    card,
+    card: Card.svg,
     status: FLIP_DOWN,
-    disable: true
+    disable: true,
+    accertedBy: null | string,
   })) */
   //useContext para los clicks
 
@@ -59,11 +60,10 @@ function MemoryApp() {
     if ((clicks + 1) % 2 == 0 && clicks > 0) {
       const first = cardsStatus.findIndex((element) => element == FLIP_UP);
       const second = index;
-      //const moves = clicks == 0? 0 : parseInt(clicks/2)
       if (second != first && cards[second] == cards[first]) {
         cardsStatusPairChanger(second, first, BLOCK);
       } else if (second != first) {
-        const timeoutId = setTimeout(
+        setTimeout(
           () => {
             cardsStatusPairChanger(second, first, FLIP_DOWN);
           },
