@@ -1,6 +1,6 @@
 import {create} from "zustand";
-import { randomCardSimbols } from "../helpers/randomCardSimbols";
-import { FLIP_DOWN } from "../constants";
+import { randomCardSimbols } from "../../helpers/randomCardSimbols";
+import { FLIP_DOWN } from "../../constants";
 
 const initCardImages = randomCardSimbols().map((image) => ({
     image,

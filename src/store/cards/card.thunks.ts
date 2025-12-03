@@ -1,6 +1,6 @@
 import { cardStore } from "./card.store";
-import { randomCardSimbols } from "../helpers/randomCardSimbols";
-import { BLOCK, FLIP_DOWN } from "../constants";
+import { randomCardSimbols } from "../../helpers/randomCardSimbols";
+import { BLOCK, FLIP_DOWN } from "../../constants";
 
 export const flipDownAllCardsAndShuffle = () => {
     const cardsImage = randomCardSimbols();

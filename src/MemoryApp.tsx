@@ -6,8 +6,8 @@ import { WinnerModal } from "./components/WinnerModal";
 import { WinnerContext, WinnerContextType } from "./context/WinnerContext";
 import { ClicksContext, ClicksContextType } from "./context/ClicksContext";
 import { ConfigContext, ConfigContextType } from "./context/ConfigContext";
-import { cardStore } from "./store/card.store";
-import { flipDownAllCardsAndShuffle } from "./store/cardThunks";
+import { cardStore } from "./store/cards/card.store";
+import { flipDownAllCardsAndShuffle } from "./store/cards/card.thunks";
 
 
 function MemoryApp() {
@@ -26,8 +26,6 @@ function MemoryApp() {
   const cardsStatusPairChanger = (firstCard: number, secondCard: number, value: number) => {
     setCardStatus(firstCard, value)
     setCardStatus(secondCard, value)
-    const comprober = cards.every((card) => card.status == BLOCK);
-    setWinner(comprober);
   };
 
   const checkAssert = (index: number) => {
