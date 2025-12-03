@@ -9,7 +9,7 @@ import worm from '../assets/worm-solid.svg'
 import otter from '../assets/otter-solid.svg'
 import hippo from '../assets/hippo-solid.svg'
 
-export const randomArray = (): string[] => {
+export const randomCardSimbols = (): string[] => {
     const oldArray = [crow, dog, dove, frog, horse, kiwi_bird, locust, worm, otter, hippo]
     let oldDoubleArray = oldArray.concat(oldArray)
     let newArray = []

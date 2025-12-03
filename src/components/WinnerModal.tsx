@@ -4,7 +4,7 @@ interface WinnerModalProps {
   resetGame: () => void;
 }
 
-export function WinnerModal({ winner = null, moves, resetGame }: WinnerModalProps) {
+export const WinnerModal = ({ winner = null, moves, resetGame }: WinnerModalProps) => {
   const text = !winner ? "" : winner + ", ";
 
   return (

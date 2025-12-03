@@ -1,7 +1,7 @@
 import right from "../assets/caret-right-solid.svg";
 import left from "../assets/caret-left-solid.svg";
 import circle from "../assets/circle-xmark-regular.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { BarGameMode } from "./BarGameMode";
 import { PlayersTurns } from "./PlayersTurns";
 import { useTime } from "../reducers/useTime.js";
@@ -14,7 +14,7 @@ interface GameModeProps {
   activeConfiguration: (boolean: boolean) => void;
 }
 
-export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
+export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) => {
   const [barState, setBarState] = useState(false);
   const [options, setOptions] = useState(0);
   const [movesRange, setMovesRange] = useState(0);
@@ -154,4 +154,4 @@ export const GameMode = ({ restart, activeConfiguration }: GameModeProps) => {
       )}
     </>
   );
-};
+});
