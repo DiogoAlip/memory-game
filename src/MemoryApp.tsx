@@ -7,7 +7,7 @@ import { WinnerContext, WinnerContextType } from "./context/WinnerContext";
 import { ClicksContext, ClicksContextType } from "./context/ClicksContext";
 import { ConfigContext, ConfigContextType } from "./context/ConfigContext";
 import { cardStore } from "./store/cards/card.store";
-import { flipDownAllCardsAndShuffle } from "./store/cards/card.thunks";
+import { compareTwoCards, flipDownAllCardsAndShuffle, setCardStatus } from "./store/cards/card.thunks";
 
 
 function MemoryApp() {
@@ -15,7 +15,6 @@ function MemoryApp() {
   const { clicks, setClicks } = useContext(ClicksContext) as ClicksContextType;
   const { configBoolean, setConfigBoolean } = useContext(ConfigContext) as ConfigContextType;
   const cards = cardStore(state => state.cards)
-  const setCardStatus = cardStore(state => state.setCardStatus)
 
   useEffect(() => {
     if (cards.every((card) => card.status == BLOCK)) {
@@ -23,36 +22,19 @@ function MemoryApp() {
     }
   }, [cards])
 
-  const cardsStatusPairChanger = (firstCard: number, secondCard: number, value: number) => {
-    setCardStatus(firstCard, value)
-    setCardStatus(secondCard, value)
-  };
-
-  const checkAssert = (index: number) => {
-    if (cards[index].status == BLOCK) return;
-    setClicks(clicks + 1);
-
-    const firstFlippedIndex = cards.findIndex((card) => card.status === FLIP_UP);
-
-    if (firstFlippedIndex === -1) {
-      setCardStatus(index, FLIP_UP);
-    } else {
-      if (firstFlippedIndex === index) {
-        setCardStatus(index, FLIP_DOWN);
-      } else {
-        setCardStatus(index, FLIP_UP);
-        const first = firstFlippedIndex;
-        const second = index;
-        if (cards[second].image == cards[first].image) {
-          cardsStatusPairChanger(second, first, BLOCK);
-        } else {
-          setTimeout(() => {
-            cardsStatusPairChanger(second, first, FLIP_DOWN);
-          }, 700);
-        }
-      }
+  useEffect(() => {
+    setClicks(clicks + 1)
+    
+    const flipedUpCardsIndex = cards.flatMap((card, index) => 
+      card.status === FLIP_UP ? [index] : []
+    );
+  
+    if (flipedUpCardsIndex.length === 2) {    
+      const firstFlippedIndex = flipedUpCardsIndex[0]
+      const secondFlippedIndex = flipedUpCardsIndex[1]
+      compareTwoCards(firstFlippedIndex, secondFlippedIndex)
     }
-  };
+  }, [cards])
 
   const restart = ({ clicksRestart = true } = {}) => {
     flipDownAllCardsAndShuffle()
@@ -88,7 +70,7 @@ function MemoryApp() {
           <Card
             face={cards[index].image}
             key={`${index}${card}`}
-            onClick={() => checkAssert(index)}
+            onClick={() => setCardStatus(index, FLIP_UP)}
             status={cards[index].status}
           />
         ))}

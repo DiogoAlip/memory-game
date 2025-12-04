@@ -16,20 +16,22 @@ export const flipDownAllCardsAndShuffle = () => {
 }
 
 export const compareTwoCards = (indexA: number, indexB: number) => {
-    const setCardStatus = cardStore.getState().setCardStatus
     const setCards = cardStore.getState().setCards
     const cards = cardStore.getState().cards
     if (cards[indexA].image === cards[indexB].image) {
-        disableAllCards(true)
-        setCardStatus(indexA, BLOCK)
-        setCardStatus(indexB, BLOCK)
-        setCards(cards.map((card) => ({
+        setCards(cards.map((card, index) => ({
             ...card,
-            disabled: true
+            disabled: true,
+            status: index == indexA || index == indexB ? BLOCK : card.status
         })))
     } else {
-        setCardStatus(indexA, FLIP_DOWN)
-        setCardStatus(indexB, FLIP_DOWN)
+        setTimeout(() => {
+            setCards(cards.map((card, index) => ({
+                ...card,
+                disabled: false,
+                status: index == indexA || index == indexB ? FLIP_DOWN : card.status
+            })))
+        }, 700)
     }
 }
 
@@ -42,4 +44,10 @@ export const disableAllCards = (clickable: boolean) => {
     }))
     setCards(disabledCards)
 }
-    
+
+export const setCardStatus = (index: number, status: number) => {
+    const setCards = cardStore.getState().setCards
+    const cards = cardStore.getState().cards
+    const updatedCards = cards.map((card, i) => (i === index ? { ...card, status } : card))
+    setCards(updatedCards)
+}
