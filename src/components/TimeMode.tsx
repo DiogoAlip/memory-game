@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ConfigurationsButtons } from "./ConfigurationButtons";
 interface TimeModeProps {
   timeString: string;
@@ -7,7 +8,7 @@ interface TimeModeProps {
   onSetTimeByNumber: (number: number) => void;
 }
 
-export const TimeMode = ({
+export const TimeMode = memo(({
   timeString,
   timeNumber,
   onChangeRange,
@@ -36,4 +37,4 @@ export const TimeMode = ({
       />
     </div>
   );
-};
+});

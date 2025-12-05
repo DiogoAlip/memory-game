@@ -1,7 +1,5 @@
 import { useReducer } from "react";
-import { timeReducer } from "./timeReducer";
-
-import { TimeState, TimeAction } from "./timeReducer";
+import { timeReducer, TimeAction } from "./timeReducer";
 
 export const useTime = (initialTime: number) => {
   const initialMinutes = Math.round(initialTime / 2);

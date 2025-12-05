@@ -1,20 +1,19 @@
 import { useContext, useEffect } from "react";
 import { Card } from "./components/Card";
-import { FLIP_DOWN, FLIP_UP, BLOCK } from "./constants";
+import { FLIP_UP, BLOCK } from "./constants";
 import { WinnerModal } from "./components/WinnerModal";
-//import { GameMode } from "./components/GameMode";
+import { GameMode } from "./components/GameMode";
 import { WinnerContext, WinnerContextType } from "./context/WinnerContext";
 import { ClicksContext, ClicksContextType } from "./context/ClicksContext";
 import { ConfigContext, ConfigContextType } from "./context/ConfigContext";
 import { cardStore } from "./store/cards/card.store";
 import { compareTwoCards, flipDownAllCardsAndShuffle, setCardStatus } from "./store/cards/card.thunks";
 
-
 function MemoryApp() {
   const { winner, setWinner } = useContext(WinnerContext) as WinnerContextType;
   const { clicks, setClicks } = useContext(ClicksContext) as ClicksContextType;
   const { configBoolean, setConfigBoolean } = useContext(ConfigContext) as ConfigContextType;
-  const cards = cardStore(state => state.cards)
+  const cards = (cardStore(state => state.cards))
 
   useEffect(() => {
     if (cards.every((card) => card.status == BLOCK)) {
@@ -53,10 +52,10 @@ function MemoryApp() {
             >
               Restart Game
             </button>}
-            {/* <GameMode
+            <GameMode
               restart={restart}
               activeConfiguration={(boolean: boolean) => setConfigBoolean(boolean)}
-            /> */}
+            />
         </div>
       </div>
       <div

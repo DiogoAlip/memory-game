@@ -11,10 +11,10 @@ export const EndGameModal = ({ players, moves, time, resetGame }: EndGameModalPr
   return (
     <div className="fixed top-0 left-0 h-full w-full bg-[#22222280] flex justify-center items-center z-20">
       <div className="fixed w-[40%] min-w-[400px] h-auto bg-[#434343] flex justify-center items-center rounded-[30px]">
-        <div className="w-[370px] h-auto my-5 mx-auto">
+        <div className="w-[370px] h-auto my-5 mx-auto flex flex-col gap-1">
           <h1 className="text-[#f3efe0] text-center">Se acabo el juego</h1>
           <h2 className="text-[#f3efe0] text-center">{reasons}</h2>
-          <hr />
+          <hr className="my-2"/>
           {<h3 className="text-[#f3efe0] text-center">Moves: {moves}</h3>}
           {time && <h3 className="text-[#f3efe0] text-center">Time: {time}</h3>}
           <div className="flex justify-center">

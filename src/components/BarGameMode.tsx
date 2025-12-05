@@ -50,29 +50,31 @@ export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }: BarGam
   }, [totalSeconds, winner]);
 
   return (
-    <div className="top-0 left-0 w-0 h-full absolute flex items-end bg-transparent">
-      <div className="h-auto flex flex-col bg-[#222222] text-[#f3efe0] rounded-r-[10px] pb-2.5">
+    <div className="top-0 left-0 h-full absolute flex items-end bg-transparent">
+      <div className="h-auto flex flex-col bg-[#222222] text-[#f3efe0] rounded-r-[10px] py-3">
         {!!timeNumber && (
-          <h4 className="p-2.5 w-[80px] text-center m-0 group">
-            <img src={timeIcon} alt="" className="invert h-[20px] mr-[5px] translate-y-[5px]" />: {convertTimeString(totalSeconds)}
+          <div className="px-6 w-fit group flex flex-row justify-center items-center gap-2">
+            <img src={timeIcon} alt="" className="invert h-[20px]" />
+            <h4 className="w-fit">: {convertTimeString(totalSeconds)}</h4>
             <button
-              className="text-[14px] font-semibold my-3 px-2.5 py-2 border-solid bg-[#434343] text-[#f3efe0] hidden group-hover:block"
+              className="ml-2 font-semibold px-3 py-2 bg-[#434343] text-[#f3efe0] hidden group-hover:block rounded-[10px] hover:bg-[#22a39f]"
               onClick={() => RestartGame({ moves: movesRange ?? 0 })}
             >
               Reinicio
             </button>
-          </h4>
+          </div>
         )}
         {!!movesRange && (
-          <h4 className="p-2.5 w-[80px] text-center m-0 group">
-            <img src={movesIcon} alt="" className="invert h-[20px] mr-[5px] translate-y-[5px]" />: {movesLeft}
+          <div className="px-6 w-fit group flex flex-row justify-center items-center gap-2">
+            <img src={movesIcon} alt="" className="invert h-[20px]" />
+            <p className="w-fit">: {movesLeft}</p>
             <button
-              className="text-[14px] font-semibold my-3 px-2.5 py-2 border-solid bg-[#434343] text-[#f3efe0] hidden group-hover:block"
+              className="ml-2 font-semibold px-3 py-2 bg-[#434343] text-[#f3efe0] hidden group-hover:block rounded-[10px] hover:bg-[#22a39f]"
               onClick={() => RestartGame({ time: timeNumber ?? 0 })}
             >
               Reinicio
             </button>
-          </h4>
+          </div>
         )}
       </div>
       {((!totalSeconds && !!timeNumber) || (!movesLeft && !!movesRange)) &&

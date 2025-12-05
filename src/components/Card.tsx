@@ -37,4 +37,4 @@ export const Card = memo(({ face, onClick, status }: CardProps) => {
       )}
     </div>
   );
-});
+})
