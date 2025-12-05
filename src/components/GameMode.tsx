@@ -18,7 +18,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
   const [barState, setBarState] = useState(false);
   const [options, setOptions] = useState(0);
   const [movesRange, setMovesRange] = useState(0);
-  const [players, setPlayers] = useState(Array(4).fill(""));
+  const [players, setPlayers] = useState(Array(2).fill(""));
   //usar useContext para este
   const { timeString, timeNumber, onSetTimeByNumber } = useTime(0);
   //user los memos para las funciones y los valores
@@ -26,37 +26,29 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
   useEffect(() => {
     const setConfigurationComprober =
       (movesRange > 0 || !!timeNumber || playersValidator()) && !barState;
-    activeConfiguration(!!setConfigurationComprober);
+    activeConfiguration(setConfigurationComprober);
     if (setConfigurationComprober) restart({ clicksRestart: false });
   }, [movesRange, barState, timeNumber]);
 
   const RestartGame = ({ time = 0, moves = 0 }: { time?: number; moves?: number }) => {
     onSetTimeByNumber(time);
     setMovesRange(moves);
-    setPlayers(Array(4).fill(""));
+    setPlayers(Array(2).fill(""));
     setBarState(!!(time || moves) ? barState : !barState);
     setOptions(!!time ? 0 : 1);
     restart();
   };
 
-  const backOptionsView = () => {
-    setOptions(options === 0 ? 2 : options - 1);
+  const changeOptionsView = (direction: -1 | 1) => {
+    setOptions(Math.abs((options + direction)%3));
   };
 
-  const nextOptionsView = () => {
-    setOptions(options === 2 ? 0 : options + 1);
+  const changeOptionsMoves = (direction: -1 | 1) => {
+    setMovesRange(Math.abs((movesRange + direction)%6));
   };
 
   const onChangeRange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onSetTimeByNumber(Number(event.target.value));
-  };
-
-  const backOptionsMoves = () => {
-    setMovesRange(movesRange === 0 ? 5 : movesRange - 1);
-  };
-
-  const nextOptionsMoves = () => {
-    setMovesRange(movesRange === 5 ? 0 : movesRange + 1);
   };
 
   const onSetPlayers = (eventPlayer: React.ChangeEvent<HTMLInputElement>, newPlayerIndex: number) => {
@@ -69,8 +61,8 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
 
   const playersValidator = () => {
     const totalPlayers = players.filter((name) => name.length);
-    if (new Set(totalPlayers).size < totalPlayers.length) return 0;
-    return totalPlayers.length < 2 ? 0 : 1;
+    if (new Set(totalPlayers).size < totalPlayers.length) return false;
+    return totalPlayers.length >= 2;
   };
 
   return (
@@ -99,7 +91,10 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
                 <h2 className="text-[#f3efe0]">Configuraciones del juego</h2>
                 <hr />
                 <div className="flex justify-center items-center">
-                  <button className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={backOptionsView}>
+                  <button
+                    className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]"
+                    onClick={() => changeOptionsView(-1)}
+                  >
                     <img src={left} alt={left} />
                   </button>
                   <div className="w-[280px] h-auto">
@@ -108,7 +103,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
                         timeString={timeString}
                         timeNumber={timeNumber}
                         onChangeRange={onChangeRange}
-                        nextOptionsView={nextOptionsView}
+                        nextOptionsView={() => changeOptionsView(1)}
                         onSetTimeByNumber={onSetTimeByNumber}
                       />
                     )}
@@ -116,9 +111,9 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
                       <MoveMode
                         movesRange={movesRange}
                         setMovesRange={setMovesRange}
-                        nextOptionsMoves={nextOptionsMoves}
-                        backOptionsMoves={backOptionsMoves}
-                        nextOptionsView={nextOptionsView}
+                        nextOptionsMoves={() => changeOptionsMoves(1)}
+                        backOptionsMoves={() => changeOptionsMoves(-1)}
+                        nextOptionsView={() => changeOptionsView(1)}
                       />
                     )}
                     {options === 2 && (
@@ -126,12 +121,14 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
                         players={players}
                         onSetPlayers={onSetPlayers}
                         playersValidator={playersValidator}
-                        nextOptionsView={nextOptionsView}
+                        nextOptionsView={() => changeOptionsView(1)}
                         setPlayers={setPlayers}
                       />
                     )}
                   </div>
-                  <button className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]" onClick={nextOptionsView}>
+                  <button
+                    className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]"
+                      onClick={() => changeOptionsView(1)}>
                     <img src={right} alt={right} />
                   </button>
                 </div>
@@ -149,7 +146,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
         />
       )}
 
-      {playersValidator() > 0 && !barState && (
+      {playersValidator() && !barState && (
         <PlayersTurns players={players} />
       )}
     </>

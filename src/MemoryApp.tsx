@@ -13,7 +13,7 @@ function MemoryApp() {
   const { winner, setWinner } = useContext(WinnerContext) as WinnerContextType;
   const { clicks, setClicks } = useContext(ClicksContext) as ClicksContextType;
   const { configBoolean, setConfigBoolean } = useContext(ConfigContext) as ConfigContextType;
-  const cards = (cardStore(state => state.cards))
+  const cards = cardStore(state => state.cards)
 
   useEffect(() => {
     if (cards.every((card) => card.status == BLOCK)) {

@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "../constants";
 
 interface CardProps {
@@ -21,7 +20,7 @@ const cardClassName = (status: number) => {
   }
 };
 
-export const Card = memo(({ face, onClick, status }: CardProps) => {
+export const Card = ({ face, onClick, status }: CardProps) => {
 
   const classCard = cardClassName(status);
 
@@ -37,4 +36,4 @@ export const Card = memo(({ face, onClick, status }: CardProps) => {
       )}
     </div>
   );
-})
+}

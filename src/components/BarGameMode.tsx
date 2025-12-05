@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EndGameModal } from "./EndGameModal";
 import movesIcon from "../assets/hand-pointer-regular.svg";
 import timeIcon from "../assets/hourglass-regular.svg";
@@ -12,7 +12,7 @@ interface BarGameModeProps {
   RestartGame: (args: { time?: number; moves?: number }) => void;
 }
 
-export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }: BarGameModeProps) => {
+export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameModeProps) => {
   const { winner, setWinner } = useContext(WinnerContext);
   const { clicks, setClicks } = useContext(ClicksContext);
   const moves = clicks % 2;
@@ -103,4 +103,4 @@ export const BarGameMode = memo(({ timeNumber, movesRange, RestartGame }: BarGam
       )}
     </div>
   );
-});
+}
