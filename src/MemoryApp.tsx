@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
 import { Card } from "./components/Card";
 import { FLIP_UP, BLOCK } from "./constants";
 import { WinnerModal } from "./components/WinnerModal";
@@ -35,11 +35,19 @@ function MemoryApp() {
     }
   }, [cards])
 
-  const restart = ({ clicksRestart = true } = {}) => {
+  const restart = useCallback(({ clicksRestart = true } = {}) => {
     flipDownAllCardsAndShuffle()
     setWinner(null);
     if (clicksRestart) setClicks(0);
-  };
+  }, []);
+
+  const handleConfigClick = useCallback(() => {
+    setConfigBoolean(prev => !prev);
+  }, [])
+
+  const handleCardClick = useCallback((index: number) => {
+    setCardStatus(index, FLIP_UP);
+  }, [])
 
   return (
     <>
@@ -47,14 +55,15 @@ function MemoryApp() {
         <h2 className="mx-3 text-center text-[#222222] font-bold text-2xl">Memory Game</h2>
         <div>
           {!configBoolean &&
-            <button className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]"
-            onClick={() => restart()}
+            <button
+              className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]"
+              onClick={() => restart()}
             >
               Restart Game
             </button>}
             <GameMode
               restart={restart}
-              activeConfiguration={(boolean: boolean) => setConfigBoolean(boolean)}
+              activeConfiguration={handleConfigClick}
             />
         </div>
       </div>
@@ -69,8 +78,9 @@ function MemoryApp() {
           <Card
             face={cards[index].image}
             key={`${index}${card}`}
-            onClick={() => setCardStatus(index, FLIP_UP)}
+            onClick={handleCardClick}
             status={cards[index].status}
+            index={index}
           />
         ))}
       </div>

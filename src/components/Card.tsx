@@ -1,9 +1,11 @@
+import { memo } from "react";
 import { FLIP_DOWN, FLIP_UP, BLOCK } from "../constants";
 
 interface CardProps {
   face: string;
-  onClick: () => void;
+  onClick: (index: number) => void;
   status: number;
+  index: number;
 }
 
 const cardClassName = (status: number) => {
@@ -20,12 +22,12 @@ const cardClassName = (status: number) => {
   }
 };
 
-export const Card = ({ face, onClick, status }: CardProps) => {
+export const Card = memo(({ face, onClick, status, index }: CardProps) => {
 
   const classCard = cardClassName(status);
 
   return (
-    <div className={classCard} onClick={onClick}>
+    <div className={classCard} onClick={() => onClick(index)}>
       {status > 1 && (
         <img
           src={face}
@@ -36,4 +38,4 @@ export const Card = ({ face, onClick, status }: CardProps) => {
       )}
     </div>
   );
-}
+});

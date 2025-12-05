@@ -4,10 +4,10 @@ import circle from "../assets/circle-xmark-regular.svg";
 import { useEffect, useState, memo } from "react";
 import { BarGameMode } from "./BarGameMode";
 import { PlayersTurns } from "./PlayersTurns";
-import { useTime } from "../reducers/useTime.js";
-import { TimeMode } from "./TimeMode.jsx";
-import { MoveMode } from "./MoveMode.jsx";
-import { MultiplayerMode } from "./MultiplayerMode.jsx";
+import { useTime } from "../reducers/useTime.ts";
+import { TimeMode } from "./TimeMode.tsx";
+import { MoveMode } from "./MoveMode.tsx";
+import { MultiplayerMode } from "./MultiplayerMode.tsx";
 
 interface GameModeProps {
   restart: (args?: { clicksRestart?: boolean }) => void;
