@@ -15,12 +15,11 @@ interface BarGameModeProps {
 export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameModeProps) => {
   const { winner, setWinner } = useContext(WinnerContext);
   const { clicks, setClicks } = useContext(ClicksContext);
-  const moves = clicks % 2;
   const LimitMoves = movesRange * 5 + 15;
-  const [movesLeft, setMovesLeft] = useState(LimitMoves - moves + 1);
+  const [movesLeft, setMovesLeft] = useState(LimitMoves - Math.floor(clicks / 2));
 
   const LimitTime =
-    Math.round(timeNumber / 2) * 60 + (timeNumber % 2 === 0 ? 30 : 0);
+    Math.floor(timeNumber / 2) * 60 + (timeNumber % 2 === 0 ? 30 : 0);
   const [totalSeconds, setTotalSeconds] = useState(LimitTime);
 
   const convertTimeString = (timeInSeconds: number) =>
@@ -29,13 +28,12 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
     }`;
 
   useEffect(() => {
-    if (!movesRange || (!totalSeconds && !!timeNumber) || winner) return;
-    const movesState = moves === 0 ? 1 : 0;
-    setMovesLeft(movesLeft - movesState);
-  }, [moves, winner]);
+    if (!movesRange || (!totalSeconds && !!timeNumber) || !!winner) return;
+    setMovesLeft(LimitMoves - Math.floor(clicks / 2));
+  }, [clicks]);
 
   useEffect(() => {
-    if (!timeNumber || (!movesLeft && !!movesRange) || winner) {
+    if (!timeNumber || (!movesLeft && !!movesRange) || !!winner) {
       return;
     }
     if (totalSeconds === 0) {
@@ -50,7 +48,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
   }, [totalSeconds, winner]);
 
   return (
-    <div className="top-0 left-0 h-full absolute flex items-end bg-transparent">
+    <div className="top-0 left-0 h-full absolute flex items-end bg-transparent pointer-events-none">
       <div className="h-auto flex flex-col bg-[#222222] text-[#f3efe0] rounded-r-[10px] py-3">
         {!!timeNumber && (
           <div className="px-6 w-fit group flex flex-row justify-center items-center gap-2">
@@ -80,7 +78,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
       {((!totalSeconds && !!timeNumber) || (!movesLeft && !!movesRange)) &&
         !winner && (
           <EndGameModal
-            moves={movesRange ? LimitMoves : moves}
+            moves={movesRange ? LimitMoves : Math.floor(clicks / 2)}
             time={timeNumber ? convertTimeString(LimitTime) : null}
             resetGame={() => {
               setClicks(0);
@@ -92,7 +90,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
         )}
       {winner && (
         <WinnerModal
-          moves={moves}
+          moves={Math.floor(clicks / 2)}
           resetGame={() => {
             RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
             setMovesLeft(LimitMoves + 1);

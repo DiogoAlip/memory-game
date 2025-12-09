@@ -22,8 +22,6 @@ function MemoryApp() {
   }, [cards])
 
   useEffect(() => {
-    setClicks(clicks + 1)
-    
     const flipedUpCardsIndex = cards.flatMap((card, index) => 
       card.status === FLIP_UP ? [index] : []
     );
@@ -47,6 +45,7 @@ function MemoryApp() {
 
   const handleCardClick = useCallback((index: number) => {
     setCardStatus(index, FLIP_UP);
+    setClicks(prev => prev + 1)
   }, [])
 
   return (
