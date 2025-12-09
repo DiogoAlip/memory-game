@@ -27,7 +27,7 @@ export const Card = memo(({ face, onClick, status, index }: CardProps) => {
   const classCard = cardClassName(status);
 
   return (
-    <div className={classCard} onClick={() => onClick(index)}>
+    <div className={classCard} onClick={() => status !== BLOCK && onClick(index)}>
       {status > 1 && (
         <img
           src={face}
