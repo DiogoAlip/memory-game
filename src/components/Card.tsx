@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 const cardClassName = (status: number) => {
-  const base = "p-3 lg:p-6 m-1 lg:m-3 h-[calc(100vh/4)] max-h-[100px] xl:max-h-[160px] w-[10%] min-w-[70px] rounded-[10px] border-[3px] border-[#222222] flex justify-center items-center";
+  const base = "p-3 lg:p-6 m-1 lg:m-3 h-[calc(100vh/4)] sm:max-h-[120px] max-h-[100px] xl:max-h-[160px] w-[10%] min-w-[80px] xl:min-w-[70px] rounded-[10px] border-[3px] border-[#222222] flex justify-center items-center";
   switch (status) {
     case FLIP_DOWN:
       return `${base} bg-[#434343] hover:bg-[#222222] hover:border-[#f3efe0]`;
