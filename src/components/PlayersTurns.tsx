@@ -1,24 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ClicksContext } from "../context/ClicksContext";
+import { userStore } from "../store/players/players.store";
 
-interface PlayersTurnsProps {
-  players: string[];
-  moves?: number; // moves is used in useEffect, but passed implicitly?
-}
-
-export function PlayersTurns({ players, moves = 0 }: PlayersTurnsProps) {
-  const totalPlayers = players.filter((name) => name.length);
+export function PlayersTurns() {
   const [turn, setTurn] = useState(0);
+  const {clicks} = useContext(ClicksContext);
+  const players = userStore.getState().players;
+  const totalPlayers = players.filter((player) => player.name.length);
   const lastTurn = totalPlayers.length - 1;
 
   useEffect(() => {
-    if (moves % 2 != 0) return;
+    if ( clicks % 2 != 0) return;
     setTurn(turn == lastTurn ? 0 : turn + 1);
-  }, [moves]);
+  }, [clicks]);
 
   return (
-    <div className="absolute h-0 w-full top-0 left-0 flex justify-center">
-      <div className="w-[80px] h-[60px] bg-[#222222] px-2 py-1 rounded-b-[10px] text-center">
-        <h4 className="text-[#f3efe0]">{players[turn]}</h4>
+    <div className="absolute w-full h-0 top-0 left-0 flex justify-center">
+      <div className="w-fit max-w-[100px] h-fit bg-[#222222] px-3 py-5 rounded-b-[10px] text-center">
+        <h4 className="text-[#f3efe0]">{players[turn].name}</h4>
       </div>
     </div>
   );

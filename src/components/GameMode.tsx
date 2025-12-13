@@ -8,6 +8,7 @@ import { useTime } from "../reducers/useTime.ts";
 import { TimeMode } from "./TimeMode.tsx";
 import { MoveMode } from "./MoveMode.tsx";
 import { MultiplayerMode } from "./MultiplayerMode.tsx";
+import { quitAllPlayers, playersValidator } from "../store/players/players.thunks.ts";
 
 interface GameModeProps {
   restart: (args?: { clicksRestart?: boolean }) => void;
@@ -18,10 +19,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
   const [barState, setBarState] = useState(false);
   const [options, setOptions] = useState(0);
   const [movesRange, setMovesRange] = useState(0);
-  const [players, setPlayers] = useState(Array(2).fill(""));
-  //usar useContext para este
   const { timeString, timeNumber, onSetTimeByNumber } = useTime(0);
-  //user los memos para las funciones y los valores
 
   useEffect(() => {
     const setConfigurationComprober =
@@ -33,7 +31,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
   const RestartGame = ({ time = 0, moves = 0 }: { time?: number; moves?: number }) => {
     onSetTimeByNumber(time);
     setMovesRange(moves);
-    setPlayers(Array(2).fill(""));
+    quitAllPlayers()
     setBarState(!!(time || moves) ? barState : !barState);
     setOptions(!!time ? 0 : 1);
     restart();
@@ -49,20 +47,6 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
 
   const onChangeRange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onSetTimeByNumber(Number(event.target.value));
-  };
-
-  const onSetPlayers = (eventPlayer: React.ChangeEvent<HTMLInputElement>, newPlayerIndex: number) => {
-    const newPlayerName = eventPlayer.target.value;
-    const newPlayers = players.map((playerElement, indexPlayers) =>
-      indexPlayers == newPlayerIndex ? newPlayerName : playerElement
-    );
-    setPlayers(newPlayers);
-  };
-
-  const playersValidator = () => {
-    const totalPlayers = players.filter((name) => name.length);
-    if (new Set(totalPlayers).size < totalPlayers.length) return false;
-    return totalPlayers.length >= 2;
   };
 
   return (
@@ -89,7 +73,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
               </button>
               <div className="text-[#f3efe0] text-center flex flex-col gap-4">
                 <h2 className="text-[#f3efe0]">Configuraciones del juego</h2>
-                <hr />
+                <hr className="w-[80%] mx-auto"/>
                 <div className="flex justify-center items-center">
                   <button
                     className="h-fit w-[30px] bg-transparent border-transparent invert p-0 m-0 hover:invert-[0.15]"
@@ -118,11 +102,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
                     )}
                     {options === 2 && (
                       <MultiplayerMode
-                        players={players}
-                        onSetPlayers={onSetPlayers}
-                        playersValidator={playersValidator}
                         nextOptionsView={() => changeOptionsView(1)}
-                        setPlayers={setPlayers}
                       />
                     )}
                   </div>
@@ -147,7 +127,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
       )}
 
       {playersValidator() && !barState && (
-        <PlayersTurns players={players} />
+        <PlayersTurns/>
       )}
     </>
   );
