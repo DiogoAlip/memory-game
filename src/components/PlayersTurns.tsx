@@ -1,17 +1,18 @@
 import { useState, useEffect, useContext } from "react";
 import { ClicksContext } from "../context/ClicksContext";
 import { userStore } from "../store/players/players.store";
+import { setPlayerTurnByName } from "../store/players/players.thunks";
 
 export function PlayersTurns() {
   const [turn, setTurn] = useState(0);
   const {clicks} = useContext(ClicksContext);
   const players = userStore.getState().players;
   const totalPlayers = players.filter((player) => player.name.length);
-  const lastTurn = totalPlayers.length - 1;
 
   useEffect(() => {
     if ( clicks % 2 != 0) return;
-    setTurn(turn == lastTurn ? 0 : turn + 1);
+    setPlayerTurnByName(totalPlayers[turn].name);
+    setTurn(turn == 1 ? 0 : turn + 1);
   }, [clicks]);
 
   return (

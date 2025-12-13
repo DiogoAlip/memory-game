@@ -4,7 +4,7 @@ export type status = "winner" | "loser" | "playing";
 
 export type player = {
     name: string;
-    moves: string;
+    moves: number;
     time: string;
     status: status;
     turn: boolean;

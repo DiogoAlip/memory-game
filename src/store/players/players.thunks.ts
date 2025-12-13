@@ -5,7 +5,7 @@ export const setPlayersByName = (players: string[]) => {
     const setPlayers = userStore.getState().setPlayers
     const newPlayers = players.map((player, index) => ({
         name: player,
-        moves: "",
+        moves: 0,
         time: "",
         status: "playing" as status,
         turn: index == 0,
@@ -21,7 +21,8 @@ export const setPlayerTurnByName = (playerName: string) => {
     const players = userStore.getState().players
     const newPlayers = players.map((player) => ({
         ...player,
-        turn: player.name == playerName
+        turn: player.name == playerName,
+        moves: player.name == playerName ? player.moves + 1 : player.moves
     }))
     setPlayers(newPlayers)
 }
