@@ -25,7 +25,7 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
     const setConfigurationComprober =
       (movesRange > 0 || !!timeNumber || playersValidator()) && !barState;
     activeConfiguration(setConfigurationComprober);
-    if (setConfigurationComprober) restart({ clicksRestart: false });
+    if (setConfigurationComprober) restart();
   }, [movesRange, barState, timeNumber]);
 
   const RestartGame = ({ time = 0, moves = 0 }: { time?: number; moves?: number }) => {

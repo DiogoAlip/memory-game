@@ -1,14 +1,16 @@
 import { userStore } from "../store/players/players.store";
+import { cardStore } from "../store/cards/card.store";
 
 interface WinnerModalProps {
-  winner?: boolean | null | string;
   moves: number;
+  time?: number;
   resetGame: () => void;
 }
 
-export const WinnerModal = ({ winner = null, moves, resetGame }: WinnerModalProps) => {
+export const WinnerModal = ({ time, moves, resetGame }: WinnerModalProps) => {
   const players = userStore.getState().players;
-  const text = !winner ? "" : winner + ", ";
+  const cards = cardStore.getState().cards;
+  const playerWinner = players.find((player) => player.status === "winner")?.name;
 
   return (
     <div className="fixed top-0 left-0 h-full w-full bg-[#22222280] flex justify-center items-center z-30">
@@ -17,19 +19,16 @@ export const WinnerModal = ({ winner = null, moves, resetGame }: WinnerModalProp
         {
         players.filter((player) => player.name.length).length >= 2 ?
         <>
-          <h1 className="text-[#f3efe0] text-center">{players.find((player) => player.status === "winner")?.name}, Felicidades!!!</h1>
+          <h1 className="text-[#f3efe0] text-center">{playerWinner ? `${playerWinner}, Felicidades!!!` : "Empate!!!"}</h1>
           <hr className="w-[80%] h-[2px] bg-[#f3efe0] mx-auto"/>
           <div className="flex flex-row w-full gap-6 text-[#f3efe0] justify-center text-center">
-            <div>
-              <h3>{players[0].name}</h3>
-              <h3>Moves: {players[0].moves}</h3>
-              <h3>Time: {players[0].time}</h3>
-            </div>
-            <div>
-              <h3>{players[1].name}</h3>
-              <h3>Moves: {players[1].moves}</h3>
-              <h3>Time: {players[1].time}</h3>
-            </div>
+            {players.map((player) => 
+            (<div>
+              <h3>{player.name}</h3>
+              <h3>Moves: {player.moves}</h3>
+              <h3>Time: {player.time}</h3>
+            </div>)
+            )}
           </div>
           <div className="flex justify-center">
             <button className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]" onClick={resetGame}>Jugar Otra Ves</button>
@@ -37,9 +36,10 @@ export const WinnerModal = ({ winner = null, moves, resetGame }: WinnerModalProp
         </>
         :
         <>
-          <h1 className="text-[#f3efe0] text-center">{text}Felicidades!!!</h1>
+          <h1 className="text-[#f3efe0] text-center">Felicidades!!!</h1>
           <hr />
           <h3 className="text-[#f3efe0] text-center">Moves: {moves}</h3>
+          {time && <h3 className="text-[#f3efe0] text-center">Time: {time}</h3>}
           <div className="flex justify-center">
             <button className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]" onClick={resetGame}>Jugar Otra Ves</button>
           </div>

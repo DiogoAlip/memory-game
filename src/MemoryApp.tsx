@@ -8,16 +8,24 @@ import { ClicksContext, ClicksContextType } from "./context/ClicksContext";
 import { ConfigContext, ConfigContextType } from "./context/ConfigContext";
 import { cardStore } from "./store/cards/card.store";
 import { compareTwoCards, flipDownAllCardsAndShuffle, setCardStatus } from "./store/cards/card.thunks";
+import { userStore } from "./store/players/players.store";
+import { setWinnerByName } from "./store/players/players.thunks";
 
 function MemoryApp() {
   const { winner, setWinner } = useContext(WinnerContext) as WinnerContextType;
   const { clicks, setClicks } = useContext(ClicksContext) as ClicksContextType;
   const { configBoolean, setConfigBoolean } = useContext(ConfigContext) as ConfigContextType;
   const cards = cardStore(state => state.cards)
+  const players = userStore(state => state.players)
 
   useEffect(() => {
     if (cards.every((card) => card.status == BLOCK)) {
       setWinner(true);
+      const cardsFromPlayer1 = cards.filter((card) => card.accertedBy === players.find((player) => player.turn)?.name)
+      const cardsFromPlayer2 = cards.filter((card) => card.accertedBy === players.find((player) => !player.turn)?.name)
+      if (cardsFromPlayer2.length == cardsFromPlayer1.length) return;
+      const playerWinner = cardsFromPlayer1.length > cardsFromPlayer2.length ? players.find((player) => player.turn)?.name : players.find((player) => !player.turn)?.name
+      setWinnerByName(playerWinner ?? "")
     }
   }, [cards])
 

@@ -1,4 +1,6 @@
 import { cardStore } from "./card.store";
+import { userStore } from "../players/players.store";
+import {setPlayerTurnByName} from "../players/players.thunks"
 import { randomCardSimbols } from "../../helpers/randomCardSimbols";
 import { BLOCK, FLIP_DOWN } from "../../constants";
 
@@ -18,11 +20,15 @@ export const flipDownAllCardsAndShuffle = () => {
 export const compareTwoCards = (indexA: number, indexB: number) => {
     const setCards = cardStore.getState().setCards
     const cards = cardStore.getState().cards
+    const playerMove = userStore.getState().players.find((player) => player.turn )
+    const nextPlayer = userStore.getState().players.find((player) => !player.turn )
+    if (nextPlayer?.name) setPlayerTurnByName(nextPlayer?.name)
     if (cards[indexA].image === cards[indexB].image) {
         setCards(cards.map((card, index) => ({
             ...card,
             disabled: true,
-            status: index == indexA || index == indexB ? BLOCK : card.status
+            status: index == indexA || index == indexB ? BLOCK : card.status,
+            acertedBy: playerMove?.name ?? ""
         })))
     } else {
         setTimeout(() => {
