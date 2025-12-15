@@ -26,7 +26,6 @@ export const WinnerModal = ({ time, moves, resetGame }: WinnerModalProps) => {
             (<div key={player.name} className="flex flex-col">
               <h3>{player.name}</h3>
               <h3>Moves: {player.moves}</h3>
-              <h3>Time: {player.time}</h3>
               <hr className="my-2"/>
               <h1>Cards</h1>
               <div className="w-full max-h-[100px] flex flex-wrap gap-2">
@@ -41,7 +40,12 @@ export const WinnerModal = ({ time, moves, resetGame }: WinnerModalProps) => {
             )}
           </div>
           <div className="flex justify-center">
-            <button className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]" onClick={resetGame}>Jugar Otra Ves</button>
+            <button
+              className="rounded-lg border border-[#222222] px-2 py-2.5 text-base font-medium bg-[#222222] text-[#f3efe0] cursor-pointer transition duration-200 mx-3 pointer-events-auto hover:bg-[#f3efe0] hover:text-[#22a39f] hover:border-[#22a39f]"
+              onClick={resetGame}
+            >
+              Jugar Otra Ves
+            </button>
           </div>
         </>
         :

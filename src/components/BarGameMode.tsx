@@ -5,12 +5,16 @@ import timeIcon from "../assets/hourglass-regular.svg";
 import { WinnerContext } from "../context/WinnerContext";
 import { WinnerModal } from "./WinnerModal";
 import { ClicksContext } from "../context/ClicksContext";
+import { userStore } from "../store/players/players.store";
 
 interface BarGameModeProps {
   timeNumber: number;
   movesRange: number;
-  RestartGame: (args: { time?: number; moves?: number }) => void;
+  RestartGame: (args: { time?: number; moves?: number; players?: boolean }) => void;
 }
+
+const players = userStore.getState().players;
+const existPlayers = !!players[0]?.name
 
 export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameModeProps) => {
   const { winner, setWinner } = useContext(WinnerContext);
@@ -56,7 +60,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
             <h4 className="w-fit">: {convertTimeString(totalSeconds)}</h4>
             <button
               className="ml-2 font-semibold px-3 py-2 bg-[#434343] text-[#f3efe0] hidden group-hover:block rounded-[10px] hover:bg-[#22a39f]"
-              onClick={() => RestartGame({ moves: movesRange ?? 0 })}
+              onClick={() => RestartGame({ moves: movesRange ?? 0, players: existPlayers })}
             >
               Reinicio
             </button>
@@ -68,7 +72,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
             <p className="w-fit">: {movesLeft}</p>
             <button
               className="ml-2 font-semibold px-3 py-2 bg-[#434343] text-[#f3efe0] hidden group-hover:block rounded-[10px] hover:bg-[#22a39f]"
-              onClick={() => RestartGame({ time: timeNumber ?? 0 })}
+              onClick={() => RestartGame({ time: timeNumber ?? 0, players: existPlayers })}
             >
               Reinicio
             </button>
@@ -82,7 +86,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
             time={timeNumber ? convertTimeString(LimitTime) : null}
             resetGame={() => {
               setClicks(0);
-              RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
+              RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0, players: existPlayers });
               setMovesLeft(LimitMoves + 1);
               setTotalSeconds(LimitTime);
             }}
@@ -92,7 +96,7 @@ export const BarGameMode = ({ timeNumber, movesRange, RestartGame }: BarGameMode
         <WinnerModal
           moves={Math.floor(clicks / 2)}
           resetGame={() => {
-            RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0 });
+            RestartGame({ time: timeNumber ?? 0, moves: movesRange ?? 0, players: existPlayers });
             setMovesLeft(LimitMoves + 1);
             setTotalSeconds(LimitTime);
             setWinner(null);

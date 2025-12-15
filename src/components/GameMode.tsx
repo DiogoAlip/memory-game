@@ -28,10 +28,10 @@ export const GameMode = memo(({ restart, activeConfiguration }: GameModeProps) =
     if (setConfigurationComprober) restart();
   }, [movesRange, barState, timeNumber]);
 
-  const RestartGame = ({ time = 0, moves = 0 }: { time?: number; moves?: number }) => {
+  const RestartGame = ({ time = 0, moves = 0, players = false }: { time?: number; moves?: number; players?: boolean }) => {
     onSetTimeByNumber(time);
     setMovesRange(moves);
-    quitAllPlayers()
+    if (players) quitAllPlayers();
     setBarState(!!(time || moves) ? barState : !barState);
     setOptions(!!time ? 0 : 1);
     restart();
