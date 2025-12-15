@@ -24,11 +24,12 @@ export const compareTwoCards = (indexA: number, indexB: number) => {
     const nextPlayer = userStore.getState().players.find((player) => !player.turn )
     if (nextPlayer?.name) setPlayerTurnByName(nextPlayer?.name)
     if (cards[indexA].image === cards[indexB].image) {
+        const playerAccurateName = playerMove?.name ?? ""
         setCards(cards.map((card, index) => ({
             ...card,
             disabled: true,
             status: index == indexA || index == indexB ? BLOCK : card.status,
-            acertedBy: playerMove?.name ?? ""
+            accurateBy: index == indexA || index == indexB ? playerAccurateName : card.accurateBy
         })))
     } else {
         setTimeout(() => {

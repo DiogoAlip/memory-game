@@ -21,8 +21,8 @@ function MemoryApp() {
   useEffect(() => {
     if (cards.every((card) => card.status == BLOCK)) {
       setWinner(true);
-      const cardsFromPlayer1 = cards.filter((card) => card.accertedBy === players.find((player) => player.turn)?.name)
-      const cardsFromPlayer2 = cards.filter((card) => card.accertedBy === players.find((player) => !player.turn)?.name)
+      const cardsFromPlayer1 = cards.filter((card) => card.accurateBy === players.find((player) => player.turn)?.name)
+      const cardsFromPlayer2 = cards.filter((card) => card.accurateBy === players.find((player) => !player.turn)?.name)
       if (cardsFromPlayer2.length == cardsFromPlayer1.length) return;
       const playerWinner = cardsFromPlayer1.length > cardsFromPlayer2.length ? players.find((player) => player.turn)?.name : players.find((player) => !player.turn)?.name
       setWinnerByName(playerWinner ?? "")

@@ -21,12 +21,22 @@ export const WinnerModal = ({ time, moves, resetGame }: WinnerModalProps) => {
         <>
           <h1 className="text-[#f3efe0] text-center">{playerWinner ? `${playerWinner}, Felicidades!!!` : "Empate!!!"}</h1>
           <hr className="w-[80%] h-[2px] bg-[#f3efe0] mx-auto"/>
-          <div className="flex flex-row w-full gap-6 text-[#f3efe0] justify-center text-center">
+          <div className="flex flex-row w-[80%] gap-6 text-[#f3efe0] justify-between mx-auto text-center">
             {players.map((player) => 
-            (<div>
+            (<div key={player.name} className="flex flex-col">
               <h3>{player.name}</h3>
               <h3>Moves: {player.moves}</h3>
               <h3>Time: {player.time}</h3>
+              <hr className="my-2"/>
+              <h1>Cards</h1>
+              <div className="w-full max-h-[100px] flex flex-wrap gap-2">
+              {cards.map((card, index) => 
+                (card.accurateBy == player.name && 
+                <div key={`${card.image}${index}`} >
+                  <img className="w-[20px] h-[20px] invert-[100%]" src={card.image} alt="" />
+                </div>)
+              )}
+              </div>
             </div>)
             )}
           </div>

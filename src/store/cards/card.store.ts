@@ -5,7 +5,7 @@ import { FLIP_DOWN } from "../../constants";
 const initCardImages = randomCardSimbols().map((image) => ({
     image,
     status: FLIP_DOWN,
-    accertedBy: "",
+    accurateBy: "",
 }))
 
 export interface CardStoreInterface {
