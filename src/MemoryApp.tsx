@@ -1,11 +1,10 @@
-import { useContext, useEffect, useCallback } from "react";
+import { useContext, useEffect, useCallback, useState } from "react";
 import { Card } from "./components/Card";
 import { FLIP_UP, BLOCK } from "./constants";
 import { WinnerModal } from "./components/WinnerModal";
 import { GameMode } from "./components/GameMode";
 import { WinnerContext, WinnerContextType } from "./context/WinnerContext";
 import { ClicksContext, ClicksContextType } from "./context/ClicksContext";
-import { ConfigContext, ConfigContextType } from "./context/ConfigContext";
 import { cardStore } from "./store/cards/card.store";
 import { compareTwoCards, flipDownAllCardsAndShuffle, setCardStatus } from "./store/cards/card.thunks";
 import { userStore } from "./store/players/players.store";
@@ -14,7 +13,7 @@ import { setWinnerByName } from "./store/players/players.thunks";
 function MemoryApp() {
   const { winner, setWinner } = useContext(WinnerContext) as WinnerContextType;
   const { clicks, setClicks } = useContext(ClicksContext) as ClicksContextType;
-  const { configBoolean, setConfigBoolean } = useContext(ConfigContext) as ConfigContextType;
+  const [configBoolean, setConfigBoolean] = useState(false);
   const cards = cardStore(state => state.cards)
   const players = userStore(state => state.players)
 
@@ -33,12 +32,12 @@ function MemoryApp() {
     const flipedUpCardsIndex = cards.flatMap((card, index) => 
       card.status === FLIP_UP ? [index] : []
     );
-  
-    if (flipedUpCardsIndex.length === 2) {    
-      const firstFlippedIndex = flipedUpCardsIndex[0]
-      const secondFlippedIndex = flipedUpCardsIndex[1]
-      compareTwoCards(firstFlippedIndex, secondFlippedIndex)
-    }
+
+    const timeOutId = setTimeout(() => {
+      if (flipedUpCardsIndex.length === 2) compareTwoCards(flipedUpCardsIndex[0], flipedUpCardsIndex[1])
+    }, 700)
+
+    return () => clearTimeout(timeOutId)
   }, [cards])
 
   const restart = useCallback(({ clicksRestart = true } = {}) => {
@@ -59,7 +58,7 @@ function MemoryApp() {
   return (
     <>
       <div className="w-full flex justify-between items-center sm:flex-row flex-col gap-3">
-        <h2 className="mx-3 text-center text-[#222222] font-bold text-2xl">Memory Game</h2>
+        <h2 className="mx-3 text-center text-[#222222] font-bold text-2xl">War Memory Game</h2>
         <div>
           {!configBoolean &&
             <button

@@ -32,13 +32,13 @@ export const compareTwoCards = (indexA: number, indexB: number) => {
             accurateBy: index == indexA || index == indexB ? playerAccurateName : card.accurateBy
         })))
     } else {
-        setTimeout(() => {
+//        setTimeout(() => {
             setCards(cards.map((card, index) => ({
                 ...card,
                 disabled: false,
                 status: index == indexA || index == indexB ? FLIP_DOWN : card.status
             })))
-        }, 700)
+//        }, 700)
     }
 }
 
