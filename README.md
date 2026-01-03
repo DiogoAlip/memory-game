@@ -33,7 +33,7 @@ Make sure you have Node.js installed on your machine.
 
 1.  Clone the repository:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/DiogoAlip/memory-game.git
     cd memory-game
     ```
 
