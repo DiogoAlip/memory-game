@@ -1,6 +1,6 @@
 # Memory Game
 
-The classic memory game with new features and game modes. This project offers a classic memory game experience enhanced with multiple game modes, including time trials, move limits, and local multiplayer support.
+The classic memory game with new features and game modes. A classic memory game experience enhanced with multiple game modes, including time trials, move limits, and local multiplayer support.
 
 ## Features
 
@@ -40,9 +40,13 @@ Make sure you have Node.js installed on your machine.
 2.  Install dependencies:
     ```bash
     npm install
-    # or
+    ```
+
+    ```bash
     yarn install
-    # or
+    ```
+
+    ```bash
     pnpm install
     ```
 
@@ -68,5 +72,5 @@ npm run build
 
 - **`src/components`**: Reusable UI components including Game configurations and Modes.
 - **`src/store`**: Zustand stores for managing global state (Cards, Players).
-- **`src/assets`**: Static assets like images and icons.
+- **`src/assets`**: Static assets like images and icons from fontawesome.
 - **`src/MemoryApp.tsx`**: Main application component containing the game logic foundation.
